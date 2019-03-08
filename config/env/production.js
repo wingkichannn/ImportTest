@@ -251,7 +251,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://wecarebill.herokuapp.com/'
+      'https://wecarebill.herokuapp.com'
     ],
 
 
