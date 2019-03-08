@@ -14,6 +14,8 @@ var hospital;
 
 app.intent('user provides surgery', (conv, params) => {
     surgery = params.surgery;
+    console.log("The value of surgery is "+surgery);
+    console.log("The params value is " +params.surgery);
   	
 });
 app.intent('user provides doctor name', (conv, params) => {
