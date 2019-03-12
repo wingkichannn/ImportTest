@@ -12,24 +12,24 @@ var price;
 var doctorName;
 var hospital;
 
-app.intent('user provides surgery', (conv, params) => {
+app.intent('user provides surgery', (conv, params, req) => {
     surgery = params.surgery;
-    console.log(surgery);
-    return conv.close("請輸入醫生名字");
+    console.log("The surgery is "+surgery);
+    return conv.close(req.queryResult.fulfillmentText);
     
   	
 });
-app.intent('user provides doctor name', (conv, params) => {
+app.intent('user provides doctor name', (conv, params, req) => {
     doctorName = params.doctorName;
-    console.log(doctorName);
-    return conv.close("請輸入全單價錢");
+    console.log("The doctor name is "+surgery);
+    return conv.close(req.queryResult.fulfillmentText);
     
 });
 app.intent('user provides hospital', (conv, params) => {
     
     hospital = params.hospital;
-    console.log(hospital);
-    return con.close("In fulfillment");
+    console.log("The doctor name is "+hospital);
+    return conv.close(req.queryResult.fulfillmentText);
 
 });
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
