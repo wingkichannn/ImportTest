@@ -102,7 +102,7 @@ app.intent('user provides hospital', (conv, params) => {
     return conv.close('請輸入全單價錢(包括所有醫生/醫院收費)**');
 
 });
-app.intent('user provides price', (conv,parmas) => {
+app.intent('user provides price', (conv,params) => {
     price = params.price;
     console.log("The price is "+ price);
     var output = "所以，你地案例為下：\n"
