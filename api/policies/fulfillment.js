@@ -15,8 +15,8 @@ var abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 
 var gastroscopy_summary= { 
-    "A" : gastroscopy_A,
-    "B" : gastroscopy_B,
+    "A" : gastroscopy_A_array,
+    "B" : gastroscopy_B_array,
     
     
 };
@@ -108,8 +108,10 @@ app.intent('user provides price', (conv,parmas) => {
     var output = "所以，你地案例為下：\n"
     for(var key in gastroscopy_summary){
         var count = 0;
-        output += abc[count] +": "+gastroscopy_A 
+        output += abc[count] +": "+gastroscopy_summary[key][0].name+"\n";
     }
+    console.log(output);
+    return conv.close(output);
 
 });
 app.intent('user modifies details', (conv, params) => {
