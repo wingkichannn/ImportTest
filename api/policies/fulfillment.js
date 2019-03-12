@@ -109,7 +109,8 @@ app.intent('user provides price', (conv,params) => {
     console.log(output);
     var count = 0;
     for(var key in gastroscopy_summary){
-       console.log(gastroscopy_summary[key][0].name);
+        var temp = gastroscopy_summary[key]
+       console.log(temp[0].name);
     }
 
     for(var key in gastroscopy_summary){
