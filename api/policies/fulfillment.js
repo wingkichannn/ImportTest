@@ -46,6 +46,9 @@ var gastroscopy_C = ["沒有併發症/複雜/特別風險/另加手術", "中風
 app.intent('user provides surgery', (conv, params, request) => {
     surgery = params.surgery;
     console.log("The surgery is "+surgery);
+    for(var key in gastroscopy_summary){
+                console.log(key);
+            }
     return conv.close(request.queryResult.fulfillmentText);
     
 });
@@ -59,7 +62,7 @@ app.intent('user provides hospital', (conv, params) => {
     
     hospital = params.hospital;
     console.log("The doctor name is "+hospital);
-    //makeOutputMessage(surgery);
+    
     return conv.close(req.queryResult.fulfillmentText);
 
 });
