@@ -12,10 +12,10 @@ var price;
 var doctorName;
 var hospital;
 
-app.intent('user provides surgery', (conv, params,  req) => {
+app.intent('user provides surgery', (conv, params) => {
     surgery = params.surgery;
     console.log("The surgery is "+surgery);
-    return conv.close(req.body.queryResult.fulfillmentText);
+    return conv.close(queryResult.fulfillmentText);
     
   	
 });
