@@ -14,12 +14,7 @@ var hospital;
 var abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 
-var gastroscopy_summary= { 
-    "B" : gastroscopy_B,
-    "C" : gastroscopy_C,
-    
-    
-};
+
 // var gastroscopy_A= {
 //     "A1" : {
 //         "name" : "沒息肉切除", 
@@ -78,6 +73,12 @@ var gastroscopy_summary= {
 var gastroscopy_B = ["一般胃鏡", "自體熒光成像", "超細胃鏡5mm(小孩/老人)", "膠囊內鏡"];
 
 var gastroscopy_C = ["沒有併發症/複雜/特別風險/另加手術", "中風險", "有併發症/複雜/另加手術", "急症"];
+var gastroscopy_summary= { 
+    "B" : gastroscopy_B,
+    "C" : gastroscopy_C,
+    
+    
+};
 
 //////////////////////Code for each Intent////////////////////////////////////
 
@@ -108,7 +109,7 @@ app.intent('user provides price', (conv,params) => {
     var output = "所以，你地案例為下：\n"
     console.log(output);
     console.log("@@@@@@@@");
-    console.log(gastroscopy_summary.B[0]);
+    console.log(gastroscopy_summary.B);
     var count = 0;
     for(var key in gastroscopy_summary){
         var temp = gastroscopy_summary[key]
