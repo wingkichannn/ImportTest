@@ -107,6 +107,8 @@ app.intent('user provides price', (conv,params) => {
     console.log("The price is "+ price);
     var output = "所以，你地案例為下：\n"
     console.log(output);
+    console.log("@@@@@@@@");
+    console.log(gastroscopy_summary.B[0]);
     var count = 0;
     for(var key in gastroscopy_summary){
         var temp = gastroscopy_summary[key]
