@@ -14,17 +14,22 @@ var hospital;
 
 app.intent('user provides surgery', (conv, params) => {
     surgery = params.surgery;
-    console.log("The value of surgery is "+surgery);
-    console.log("The params value is " +params.surgery);
+    console.log(surgery);
+    return conv.close("請輸入醫生名字");
+    
   	
 });
 app.intent('user provides doctor name', (conv, params) => {
     doctorName = params.doctorName;
-
+    console.log(doctorName);
+    return conv.close("請輸入全單價錢");
+    
 });
 app.intent('user provides hospital', (conv, params) => {
     
     hospital = params.hospital;
+    console.log(hospital);
+    return con.close("In fulfillment");
 
 });
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
