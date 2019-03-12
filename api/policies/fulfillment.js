@@ -70,9 +70,9 @@ var abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 //     gastroscopy_B_array.push(gastroscopy_B[key]);
 // }
 ///////////////////////////////////////////////////////////////////////////////////
-var gastroscopy_B = ["一般胃鏡", "自體熒光成像", "超細胃鏡5mm(小孩/老人)", "膠囊內鏡"];
+var gastroscopy_B = ['一般胃鏡', '自體熒光成像', '超細胃鏡5mm(小孩/老人)', '膠囊內鏡'];
 
-var gastroscopy_C = ["沒有併發症/複雜/特別風險/另加手術", "中風險", "有併發症/複雜/另加手術", "急症"];
+var gastroscopy_C = ['沒有併發症/複雜/特別風險/另加手術', '中風險', '有併發症/複雜/另加手術', '急症'];
 var gastroscopy_summary= { 
     "B" : gastroscopy_B,
     "C" : gastroscopy_C,
@@ -110,14 +110,15 @@ app.intent('user provides price', (conv,params) => {
     console.log(output);
     console.log("@@@@@@@@");
     console.log(gastroscopy_summary.B);
+    for(var key in gastroscopy_summary){
+        var temp = gastroscopy_summary[key];
+        console.log("*******"+temp);
+       console.log(temp[1].name);
+    }
     var count = 0;
     for(var key in gastroscopy_summary){
-        var temp = gastroscopy_summary[key]
-       console.log(temp[0].name);
-    }
-
-    for(var key in gastroscopy_summary){
-        output += (abc[count] +": "+gastroscopy_summary[key][0].name+"\n");
+        output += (abc[count] +": "+gastroscopy_summary[key][1].name+"\n");
+        count++;
     }
     console.log(output);
     return conv.close(output);
