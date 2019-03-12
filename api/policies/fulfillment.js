@@ -107,9 +107,13 @@ app.intent('user provides price', (conv,parmas) => {
     console.log("The price is "+ price);
     var output = "所以，你地案例為下：\n"
     console.log(output);
+    var count = 0;
     for(var key in gastroscopy_summary){
-        var count = 0;
-        output += abc[count] +": "+gastroscopy_summary[key][0].name+"\n";
+       console.log(gastroscopy_summary[key][0].name);
+    }
+
+    for(var key in gastroscopy_summary){
+        output += (abc[count] +": "+gastroscopy_summary[key][0].name+"\n");
     }
     console.log(output);
     return conv.close(output);
