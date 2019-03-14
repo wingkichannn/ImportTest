@@ -93,11 +93,11 @@ var gastroscopy_summary= {
 
 //////////////////////Code for each Intent////////////////////////////////////
 
-app.intent('user provides surgery', (conv, params,req) => {
+app.intent('user provides surgery', (conv, params) => {
     surgery = params.surgery;
     console.log("The surgery is "+surgery);
     console.log("********************");
-    console.log(req.QueryResult.fulfillmentText)
+   // console.log(req.QueryResult.fulfillmentText)
   
     return conv.close('請輸入負責手術的醫生名字，如不知道請輸入"0"**');
     
