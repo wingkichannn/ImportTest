@@ -5,8 +5,7 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 const {dialogflow} = require('actions-on-google');
 
-const agent = new WebhookClient({ request, response });
-
+// const agent = new WebhookClient({ request, response });
 const app = dialogflow();
 
 var surgery;
@@ -87,9 +86,9 @@ var gastroscopy_summary= {
     
 // };
 
-function getFulfillmentText(agent) {
-    console.log(agent.request.body.queryResult.fulfillmentText)
-}
+// function getFulfillmentText(agent) {
+//     console.log(agent.request.body.queryResult.fulfillmentText)
+// }
 
 
 //////////////////////Code for each Intent////////////////////////////////////
@@ -106,7 +105,7 @@ app.intent('user provides surgery', (conv, params,req) => {
 app.intent('user provides doctor name', (conv, params, req) => {
     doctorName = params.doctorName;
     console.log("The doctor name is "+doctorName);
-    getFulfillmentText(agent);
+    // getFulfillmentText(agent);
     return conv.close('請問醫院名稱**');
     
 });
