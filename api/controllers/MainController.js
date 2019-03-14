@@ -7,7 +7,7 @@
 
 module.exports = {
     fulfill: async function (req, res) {
-        return;
+        return res.fulfillment();
     }
   
 

@@ -11,7 +11,7 @@
 module.exports.policies = {
   MainController: {
 
-    fulfill: 'fulfillment'
+    // fulfill: 'fulfillment'
 
 }
 
