@@ -5,6 +5,8 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 const {dialogflow} = require('actions-on-google');
 
+const agent = new WebhookClient({ request, response });
+
 const app = dialogflow();
 
 var surgery;
@@ -55,9 +57,7 @@ var gastroscopy_B = {
 };
 var gastroscopy_summary= { 
         "A" : gastroscopy_A,
-        "B" : gastroscopy_B,
-        
-        
+        "B" : gastroscopy_B,       
     };
 
 // var gastroscopy_C = ["沒有併發症/複雜/特別風險/另加手術", "中風險", "有併發症/複雜/另加手術", "急症"];
@@ -67,15 +67,15 @@ var gastroscopy_summary= {
 // var gastroscopy_C = ["沒有併發症/複雜/特別風險/另加手術", "中風險", "有併發症/複雜/另加手術", "急症"];
 
 ////////////////// convert the object to an array.//////////////////////////////////////
-var gastroscopy_A_array = [];
-var gastroscopy_B_array = [];
-for(var key in gastroscopy_A){
-    gastroscopy_A_array.push(gastroscopy_A[key]);
-}
-console.log(">>>>>>>>>>>>>>>>>>>>>>"+gastroscopy_A_array);
-for(var key in gastroscopy_B){
-    gastroscopy_B_array.push(gastroscopy_B[key]);
-}
+// var gastroscopy_A_array = [];
+// var gastroscopy_B_array = [];
+// for(var key in gastroscopy_A){
+//     gastroscopy_A_array.push(gastroscopy_A[key]);
+// }
+// console.log(">>>>>>>>>>>>>>>>>>>>>>"+gastroscopy_A_array);
+// for(var key in gastroscopy_B){
+//     gastroscopy_B_array.push(gastroscopy_B[key]);
+// }
 ///////////////////////////////////////////////////////////////////////////////////
 // var gastroscopy_B = ['一般胃鏡', '自體熒光成像', '超細胃鏡5mm(小孩/老人)', '膠囊內鏡'];
 
@@ -87,11 +87,18 @@ for(var key in gastroscopy_B){
     
 // };
 
+function getFulfillmentText(agent) {
+    console.log(agent.request.body.queryResult.fulfillmentText)
+}
+
+
 //////////////////////Code for each Intent////////////////////////////////////
 
-app.intent('user provides surgery', (conv, params) => {
+app.intent('user provides surgery', (conv, params,req) => {
     surgery = params.surgery;
     console.log("The surgery is "+surgery);
+    console.log("********************");
+    console.log(req.QueryResult.fulfillmentText)
   
     return conv.close('請輸入負責手術的醫生名字，如不知道請輸入"0"**');
     
@@ -99,6 +106,7 @@ app.intent('user provides surgery', (conv, params) => {
 app.intent('user provides doctor name', (conv, params, req) => {
     doctorName = params.doctorName;
     console.log("The doctor name is "+doctorName);
+    getFulfillmentText(agent);
     return conv.close('請問醫院名稱**');
     
 });
@@ -113,26 +121,30 @@ app.intent('user provides hospital', (conv, params) => {
 app.intent('user provides price', (conv,params) => {
     price = params.price;
     console.log("The price is "+ price);
-    var output = "所以，你地案例為下：\n"
+    // for(var key in surgery_summary)break;
+    // var temp = surgery_summary[key];
+    // console.log("11111111."+temp);
+    // // var output = "所以，你地案例為下：\n"
+    // // // console.log(output);
+    // // console.log("@@@@@@@@");
+    // // console.log(gastroscopy_summary.B);
+    // // for(var key in gastroscopy_summary){
+    // //     var temp = gastroscopy_summary[key];
+    // //     console.log("*******"+temp);
+    // //    console.log(temp[1].name);
+    // //    const optionsList = list.map(item => Object.values(item)[0]);
+    // // }
+    // var count = 0;
+    // for(var key in gastroscopy_summary){
+    //     output += (abc[count] +": "+gastroscopy_summary[key][1].name+"\n");
+    //     count++;
+    // }
     // console.log(output);
-    console.log("@@@@@@@@");
-    // console.log(gastroscopy_summary.B);
-    for(var key in gastroscopy_summary){
-        var temp = gastroscopy_summary[key];
-        console.log("*******"+temp);
-       console.log(temp[1].name);
-       const optionsList = list.map(item => Object.values(item)[0]);
-    }
-    var count = 0;
-    for(var key in gastroscopy_summary){
-        output += (abc[count] +": "+gastroscopy_summary[key][1].name+"\n");
-        count++;
-    }
-    console.log(output);
-    return conv.close(output);
+    return conv.close("Display the surgery summary");
 
 });
 app.intent('user modifies details', (conv, params) => {
+    
    
 });
 // function makeOutputMessage(surgery){
