@@ -2,7 +2,7 @@ module.exports = function() {
 
     var req = this.req;
     var res = this.res;
-   var surgery;
+  // var surgery;
     const {WebhookClient} = require('dialogflow-fulfillment');
     const {Card, Suggestion} = require('dialogflow-fulfillment');
   
@@ -50,6 +50,8 @@ module.exports = function() {
         let params = agent.parameters;
         hospital = params.hospital;
         console.log("The hospital is "+hospital);
+        //console.log(">>>>"+)
+        console.log("INput context is: "+ req.body.outputContexts[2].surgery);
        
         return conv.close('請輸入全單價錢(包括所有醫生/醫院收費)**');
     
