@@ -2,7 +2,7 @@ module.exports = function() {
 
     var req = this.req;
     var res = this.res;
-  
+   var surgery;
     const {WebhookClient} = require('dialogflow-fulfillment');
     const {Card, Suggestion} = require('dialogflow-fulfillment');
   
@@ -41,7 +41,8 @@ module.exports = function() {
         doctorName = params.doctorName;
         console.log("The doctor name is "+doctorName);
         // getFulfillmentText(agent);
-        return conv.close('請問醫院名稱**');
+        console.log("Surgery in doctor name intent: ");
+        return agent.add('請問醫院名稱**');
         
     });
     intentMap.set('user provides hospital', (agent) => {
