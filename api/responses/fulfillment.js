@@ -26,6 +26,8 @@ module.exports = function() {
 
     intentMap.set('user provides surgery', (agent) => {
         let conv = agent.conv();
+        console.log(":::::::::::::::::::::::");
+        console.log(conv);
         let params = agent.parameters;
         surgery = params.surgery;
         console.log("The surgery is "+surgery);
@@ -53,8 +55,9 @@ module.exports = function() {
         return conv.close('請輸入全單價錢(包括所有醫生/醫院收費)**');
     
     });
-    intentMap.set('user provides price', (conv,params) => {
+    intentMap.set('user provides price', (agent) => {
         let conv = agent.conv();
+        let params = agent.parameters;
         price = params.price;
         console.log("The price is "+ price);
         // for(var key in surgery_summary)break;
