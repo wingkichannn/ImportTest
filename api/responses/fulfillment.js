@@ -32,7 +32,7 @@ module.exports = function() {
         surgery = params.surgery;
         console.log("The surgery is "+surgery);
       
-        return conv.close('請輸入負責手術的醫生名字，如不知道請輸入"0"**');
+        return agent.add('請輸入負責手術的醫生名字，如不知道請輸入"0"**');
         
     });
     intentMap.set('user provides doctor name', (agent) => {
