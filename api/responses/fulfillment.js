@@ -31,8 +31,6 @@ module.exports = function() {
         let params = agent.parameters;
         surgery = params.surgery;
         console.log("The surgery is "+surgery);
-        console.log("********************");
-       console.log("+++++++++++++++++++"+app.queryResult.fulfillmentText);
       
         return conv.close('請輸入負責手術的醫生名字，如不知道請輸入"0"**');
         
