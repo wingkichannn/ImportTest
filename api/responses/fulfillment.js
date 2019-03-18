@@ -21,7 +21,21 @@ module.exports = function() {
         let params = agent.parameters;
         doctorName = params.doctorName;
         console.log("The doctor name is "+doctorName);
+        // var lowerBaselinePrice
+        // var upperBaselinePrice
+        // var surgery = await db.collection('surgery').doc('58').get().then(doc => {lowerBaselinePrice= doc.data().lowerBaselinePrice;});
+        // var surgery1 = await db.collection('surgery').doc('58');
+        // var surgery = await db.collection('surgery').doc('58').get().then(doc => {upperBaselinePrice= doc.data().upperBaselinePrice;});
+      
+        
+        // console.log("the lowerbaselinePrice is" +lowerBaselinePrice);
+        // console.log("The surgery is " + surgery);
+        // console.log("The surgery1 is " + surgery1);
+        
+        // agent.add(lowerBaselinePrice);
+        
         return agent.add('請問醫院名稱**');
+        
         
     }
     async function doctorName(agent){
@@ -64,6 +78,7 @@ module.exports = function() {
     intentMap.set('user does not provide doctor name', noDoctorName);
     intentMap.set('user wants to see doctor list', doctorlist);
     intentMap.set('follow up', followUp);
+    agent.handleRequest(intentMap);
     // // intentMap.set('<INTENT_NAME_HERE>', yourFunctionHandler);
     // // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
     // agent.handleRequest(intentMap);
@@ -132,5 +147,5 @@ module.exports = function() {
        
     // });
 
-    agent.handleRequest(intentMap);
+    
   }
