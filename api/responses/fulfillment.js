@@ -28,24 +28,24 @@ module.exports = function () {
 
     }
     async function noDoctorName(agent) {
-        var lowerBaselinePrice
-        var upperBaselinePrice
-        var surgery = await db.collection('surgery').doc('58').get();
-        var general = await db.collection('general').doc('option').get();
-        var surgeryOptions = await surgery.collection('option').doc().get()
-        surgeryOptions.forEach(element => {
-            console.log(element.id);
-            console.log(element.data())
-        });
-        await surgery.collection('option').doc('general').collection('A').doc().get()
-
-        // var surgery1 = await db.collection('surgery').doc('58');
+        // var lowerBaselinePrice
+        // var upperBaselinePrice
         // var surgery = await db.collection('surgery').doc('58').get();
+        // var general = await db.collection('general').doc('option').get();
+        // var surgeryOptions = await surgery.collection('option').doc().get()
+        // surgeryOptions.forEach(element => {
+        //     console.log(element.id);
+        //     console.log(element.data())
+        // });
+        // await surgery.collection('option').doc('general').collection('A').doc().get()
 
-        console.log(surgery.data().lowerBaselinePrice);
-        console.log(upperBaselinePrice);
+        // // var surgery1 = await db.collection('surgery').doc('58');
+        // // var surgery = await db.collection('surgery').doc('58').get();
 
-        agent.add(lowerBaselinePrice);
+        // console.log(surgery.data().lowerBaselinePrice);
+        // console.log(upperBaselinePrice);
+
+        // agent.add(lowerBaselinePrice);
 
     }
     async function doctorName(agent) {
