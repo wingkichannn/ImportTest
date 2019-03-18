@@ -23,10 +23,11 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
-  '/': {
-    view: 'pages/homepage'
-  },
+ 'ALL /': 'MainController.fulfill',
+ //'GET /index2' :  'FulfillmentController.index2',
+  // '/': {
+  //   view: 'pages/homepage'
+  // },
 
   /***************************************************************************
   *                                                                          *
