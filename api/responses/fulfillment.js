@@ -34,13 +34,14 @@ module.exports = function() {
         
         // agent.add(lowerBaselinePrice);
         
-        return agent.add('請問醫院名稱**');
+        return agent.add('請問醫生名稱**');
         
         
     }
     async function doctorName(agent){
         let params = agent.parameters;
         doctorName = params.doctorName;
+        console.log(agent.getContext('userprovidessurgery-followup'))
         console.log("The doctor name is "+doctorName);
         // getFulfillmentText(agent);
         console.log("Surgery in doctor name intent: ");
