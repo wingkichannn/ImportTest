@@ -9,8 +9,5 @@ module.exports = {
     fulfill: async function (req, res) {
         return res.fulfillment();
     }
-    
-  
-
 };
 
