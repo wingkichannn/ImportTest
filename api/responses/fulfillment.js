@@ -75,9 +75,9 @@ module.exports = function() {
     intentMap.set('user provides doctor name', doctorName);
     intentMap.set('user provides hospital', hospital);
     intentMap.set('user provides price', price);
-    intentMap.set('user does not provide doctor name', noDoctorName);
-    intentMap.set('user wants to see doctor list', doctorlist);
-    intentMap.set('follow up', followUp);
+    // intentMap.set('user does not provide doctor name', noDoctorName);
+    // intentMap.set('user wants to see doctor list', doctorlist);
+    // intentMap.set('follow up', followUp);
     agent.handleRequest(intentMap);
     // // intentMap.set('<INTENT_NAME_HERE>', yourFunctionHandler);
     // // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
