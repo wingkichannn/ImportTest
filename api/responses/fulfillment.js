@@ -83,6 +83,7 @@ module.exports = function () {
                 optionDocs.forEach(doc => {
                         console.log(doc.id);
                         console.log(doc.data().price);
+                        output += await doc.data()['內容'] +" : $" +doc.data().price +".";
                     });
                 // for(const doc of optionDocs){
                 //     console.log("..."+(await doc.get()).data().price);
