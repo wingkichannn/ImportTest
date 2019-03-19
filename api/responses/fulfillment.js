@@ -45,11 +45,10 @@ module.exports = function () {
         console.log("ChiNAme is " + ChineseName);
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
-        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        var output = " ";
-        output = await optionsRef.forEach(async element => {
-            //console.log(element);
+        var output = '';
 
+        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
+        output = await optionsRef.forEach(async element => {
             var tempElement = await element.doc('1').get();
             console.log(">>>>>>>>" + tempElement.data()['內容']);
             console.log("<<<<<<<" + tempElement.data().title);
