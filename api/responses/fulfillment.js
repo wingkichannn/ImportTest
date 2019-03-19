@@ -35,7 +35,8 @@ module.exports = function () {
     async function noDoctorName(agent) {
         // var outputContexts2 = req.body.queryResults.outputContexts;
         // console.log("+++++++++++++" + outputContexts2);
-
+        var part1 = 0;
+        var part2 = 0;
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
@@ -45,18 +46,22 @@ module.exports = function () {
         console.log("ChiNAme is " + ChineseName);
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
-        var output = '';
+        var output = ChineseName+ '基線案例收費通常為'+surgery.data().lowerBaselinePrice+"至"+surgery.data().upperBaselinePrice+"，基線案例: ";
+        part1 = 1;
 
-        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        output = await optionsRef.forEach(async element => {
-            var tempElement = await element.doc('1').get();
-            console.log(">>>>>>>>" + tempElement.data()['內容']);
-            console.log("<<<<<<<" + tempElement.data().title);
-            output += await abc[count] + tempElement.data()['內容'] + ",  ";
-            count++;
-            console.log("..." + output);
-        });
-        console.log("?????" + output);
+
+        if (part1 == 1) {
+            var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
+            var temp = await optionsRef.forEach(async element => {
+                var tempElement = await element.doc('1').get();
+                console.log(">>>>>>>>" + tempElement.data()['內容']);
+                console.log("<<<<<<<" + tempElement.data().title);
+                output += await abc[count] + tempElement.data()['內容'] + ",  ";
+                count++;
+                console.log("..." + output);
+            });
+            console.log("?????" + output);
+        }
 
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
