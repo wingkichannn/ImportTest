@@ -59,7 +59,7 @@ module.exports = function () {
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
             var tempOutput;
             //Use for each to loop all collections > element = a collection
-            var temp = await optionsRef.forEach(async element => {
+            await optionsRef.forEach(async element => {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
@@ -68,6 +68,7 @@ module.exports = function () {
                 count++;
                 console.log(output);
             });
+            console.log("The returned output: "+ output);
             return output;
 
             
