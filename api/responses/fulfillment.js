@@ -8,21 +8,8 @@ module.exports = function () {
     // connect firebase
     const agent = new WebhookClient({ request: req, response: res });
 
-   
 
-    if (!firebase.apps.length) {
-        var admin = require('firebase-admin');
-
-        var serviceAccount = require(sails.config.appPath + '/wecarebill-92132-firebase-adminsdk-7usxj-6240df0e36.json');
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount),
-            databaseURL: 'https://wecarebill-92132.firebaseio.com'
-
-        });
-        var db = admin.firestore();
-    }
-
-
+    var db = sails.admin.firestore();
     
 
     // FUNCTIONS FOR INTENTS
