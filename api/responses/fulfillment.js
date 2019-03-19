@@ -40,7 +40,8 @@ module.exports = function () {
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
 
-        var chiName = db.collection('surgery').doc(contextSurgery).get().data()['內容'];
+        var chiName = await db.collection('surgery').doc(contextSurgery).get();
+        console.log(">>>>" + chiName);
         console.log("ChiNAme is "+ chiName );
 
 
