@@ -44,17 +44,21 @@ module.exports = function () {
         var ChineseName = surgery.data()['內容'];
         console.log("ChiNAme is " + ChineseName);
 
-        var optionsRef = db.collection('surgery').doc(contextSurgery).collection('option').doc('specific');
-        //console.log("Options " + optionsRef);
-        optionsRef.getCollections().then(collections => {
-            collections.forEach(collection => {
-                var tempDoc = collection.doc('1').get();
-                console.log("TempDoc is " +tempDoc);
-                console.log('surgery' + JSON.stringify(tempDoc)); 
-                console.log(tempDoc.data()['內容']);
-
+        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').get();
+        optionsRef.forEach(element => {
+                console.log(element);
+                console.log(element.data());
             });
-        });
+        //console.log("Options " + optionsRef);
+        // optionsRef.getCollections().then(collections => {
+        //     collections.forEach(collection => {
+        //         var tempDoc = collection.doc('1').get();
+        //         console.log("TempDoc is " +tempDoc);
+        //         console.log('surgery' + JSON.stringify(tempDoc)); 
+        //         console.log(tempDoc.data()['內容']);
+
+        //     });
+        // });
 
 
         // var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
