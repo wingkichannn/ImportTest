@@ -50,12 +50,12 @@ module.exports = function () {
         output = await optionsRef.forEach(async element => {
             //console.log(element);
             
-            var tempElement = await element.doc('1').get().then(async function(){
-                output += await abc[count]+tempElement.data()['內容']+",  ";
+            var tempElement = element.doc('1').get().then(function(){
+                output += abc[count]+tempElement.data()['內容']+",  ";
                 count++;
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
-               await console.log("..."+output);
+                console.log("..."+output);
             });
            
             
