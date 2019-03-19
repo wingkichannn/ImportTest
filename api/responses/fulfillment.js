@@ -80,7 +80,7 @@ module.exports = function () {
             for(const element of optionsRef){
                 var optionDocs = await element.get();
                 for(const doc of optionDocs){
-                    console.log((await doc.get()).price);
+                    console.log("..."+(await doc.get()).price);
                 }
             }
             // await optionsRef.forEach(async element => {
