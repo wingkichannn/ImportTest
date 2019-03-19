@@ -12,7 +12,6 @@
 module.exports.bootstrap = async function(done) {
 
   var admin = require('firebase-admin');
-
   var serviceAccount = require(sails.config.appPath + '/wecarebill-92132-firebase-adminsdk-7usxj-6240df0e36.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -20,7 +19,7 @@ module.exports.bootstrap = async function(done) {
 
   });
 
-  db = admin.firestore();
+  var db = admin.firestore();
 
   // By convention, this is a good place to set up fake data during development.
   //

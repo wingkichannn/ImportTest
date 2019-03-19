@@ -2,12 +2,22 @@ module.exports = function () {
 
     var req = this.req;
     var res = this.res;
-    // var surgery;
     const { WebhookClient } = require('dialogflow-fulfillment');
     // const {Card, Suggestion} = require('dialogflow-fulfillment');
 
+    // connect firebase
     const agent = new WebhookClient({ request: req, response: res });
+    var admin = require('firebase-admin');
+    var serviceAccount = require(sails.config.appPath + '/wecarebill-92132-firebase-adminsdk-7usxj-6240df0e36.json');
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: 'https://wecarebill-92132.firebaseio.com'
+  
+    });
+  
+    var db = admin.firestore();
 
+    // FUNCTIONS FOR INTENTS
     async function welcome(agent) {
         agent.add(`Welcome to my agent!`);
     }
@@ -16,36 +26,34 @@ module.exports = function () {
         agent.add(`I didn't understand`);
         agent.add(`I'm sorry, can you try again?`);
     }
+
+    // function for getting surgery data > ask doctor name(reponse);
     async function surgery(agent) {
         let conv = agent.conv();
         let params = agent.parameters;
         doctorName = params.doctorName;
         console.log("The doctor name is " + doctorName);
-
-
         return agent.add('請問醫生名稱**');
-
-
     }
     async function noDoctorName(agent) {
-        // var lowerBaselinePrice
-        // var upperBaselinePrice
+        var lowerBaselinePrice
+        var upperBaselinePrice
+        var surgery = await db.collection('surgery').doc('58').get();
+        var general = await db.collection('general').doc('option').get();
+        var surgeryOptions = await surgery.collection('option').doc().get()
+        surgeryOptions.forEach(element => {
+            console.log(element.id);
+            console.log(element.data())
+        });
+        await surgery.collection('option').doc('general').collection('A').doc().get()
+
+        // var surgery1 = await db.collection('surgery').doc('58');
         // var surgery = await db.collection('surgery').doc('58').get();
-        // var general = await db.collection('general').doc('option').get();
-        // var surgeryOptions = await surgery.collection('option').doc().get()
-        // surgeryOptions.forEach(element => {
-        //     console.log(element.id);
-        //     console.log(element.data())
-        // });
-        // await surgery.collection('option').doc('general').collection('A').doc().get()
 
-        // // var surgery1 = await db.collection('surgery').doc('58');
-        // // var surgery = await db.collection('surgery').doc('58').get();
+        console.log(surgery.data().lowerBaselinePrice);
+        console.log(upperBaselinePrice);
 
-        // console.log(surgery.data().lowerBaselinePrice);
-        // console.log(upperBaselinePrice);
-
-        // agent.add(lowerBaselinePrice);
+        agent.add(lowerBaselinePrice);
 
     }
     async function doctorName(agent) {
