@@ -49,11 +49,12 @@ module.exports = function () {
         // Just for showing the order
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
+        outputMessage().then(string => {string});
 
         agent.add(await getOptions());
 
 
-        async function getOptions() {
+        const outputMessage = async() => {
             var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
@@ -67,13 +68,10 @@ module.exports = function () {
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
                 console.log(output);
-            }).then(
+            });
             console.log("The returned output: "+ output)
-            )
-            return output;
-
             
-
+            return output;
         }
 
 
