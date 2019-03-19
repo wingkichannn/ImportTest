@@ -47,14 +47,14 @@ module.exports = function () {
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
         var output;
         optionsRef.forEach(async element => {
-                //console.log(element);
-                var tempElement = await element.doc('1').get();
-                console.log(">>>>>>>>"+tempElement.data()['內容']);
-                console.log("<<<<<<<"+ tempElement.data().title);
-                output+=tempElement.data()['內容'];
-            });
-            console.log(output);
-            
+            //console.log(element);
+            var tempElement = await element.doc('1').get();
+            console.log(">>>>>>>>" + tempElement.data()['內容']);
+            console.log("<<<<<<<" + tempElement.data().title);
+            output += tempElement.data()['內容'];
+        });
+        await console.log(output);
+
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
         //     collections.forEach(collection => {
