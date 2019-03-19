@@ -79,7 +79,7 @@ module.exports = function () {
 
             for(const element of optionsRef){
                 var optionDocs = await element.get();
-                for(const doc of optionsDocs){
+                for(const doc of optionDocs){
                     console.log((await doc.get()).price);
                 }
             }
