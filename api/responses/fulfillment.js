@@ -42,17 +42,18 @@ module.exports = function () {
 
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
         var ChineseName = surgery.data()['內容'];
-        console.log("ChiNAme is "+ ChineseName );
+        console.log("ChiNAme is " + ChineseName);
 
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific');
-        console.log("Options " +optionsRef);
+        console.log("Options " + optionsRef);
         optionsRef.getCollections().then(collections => {
-                collections.forEach(collection => {
-                   
-                  console.log(collection.get());
-    
-                });
+            collections.forEach(collection => {
+                tempDoc = await collection.doc('1').get();
+
+                console.log(tempDoc.data()['內容']);
+
             });
+        });
 
 
         // var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
@@ -71,7 +72,7 @@ module.exports = function () {
         //     });
         // });
 
-     
+
 
 
 
