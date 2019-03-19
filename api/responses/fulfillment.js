@@ -33,30 +33,39 @@ module.exports = function () {
 
     // Show baseline case + all specific options with price.
     async function noDoctorName(agent) {
-        // var outputContexts2 = req.body.queryResults.outputContexts;
-        // console.log("+++++++++++++" + outputContexts2);
 
+        ///Get the values from outputContexts
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
 
+        // Search the document of the requested surgery from firebase
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
+
+        // Get a value of a field of the doc.
         var ChineseName = surgery.data()['內容'];
         console.log("ChiNAme is " + ChineseName);
+
+        // Just for showing the order
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
         var output = ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
+        function getOptions() {
+            //Get all collections of "Specific" documents
+            var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
 
-        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        var temp = await optionsRef.forEach(async element => {
-            var tempElement = await element.doc('1').get();
-            console.log(">>>>>>>>" + tempElement.data()['內容']);
-            console.log("<<<<<<<" + tempElement.data().title);
-            output += await abc[count] + tempElement.data()['內容'] + ",  ";
-            count++;
-            console.log("..." + output);
-        });
-        console.log(output);
+            //Use for each to loop all collections > element = a collection
+            var temp = await optionsRef.forEach(async element => {
+                var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
+                console.log(">>>>>>>>" + tempElement.data()['內容']);
+                console.log("<<<<<<<" + tempElement.data().title);
+                output += await abc[count] + tempElement.data()['內容'] + ",  ";
+                count++;
+                console.log(output);
+            });
+        }
+        await getOptions();
+        console.log("....:::"+output);
 
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
