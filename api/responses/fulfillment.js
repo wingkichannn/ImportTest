@@ -50,8 +50,7 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
         var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
-        output = await getOptions();
-        agent.add(output);
+        getOptions().then(x => agent.add(output));
 
         async function getOptions() {
             //Get all collections of "Specific" documents
