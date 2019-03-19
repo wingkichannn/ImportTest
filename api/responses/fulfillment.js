@@ -36,7 +36,7 @@ module.exports = function () {
         // var outputContexts2 = req.body.queryResults.outputContexts;
         // console.log("+++++++++++++" + outputContexts2);
 
-        var outputContexts = agent.context.get('projects/wecarebill-3-3-2019/agent/sessions/4cd5a4b8-bff0-17e9-8d21-36b4810ebc0b/contexts/outputcontexts');
+        var outputContexts = agent.getContext('outputcontexts');
         console.log("<<<<<<<<<<<"+outputContexts);
         var surgery = outputContexts.parameters.surgery;
         console.log("**** The surgery is "+surgery);
