@@ -45,7 +45,7 @@ module.exports = function () {
         console.log("ChiNAme is " + ChineseName);
 
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        optionsRef.forEach(async element => {
+        optionsRef.forEach( element => {
                 //console.log(element);
                 var tempElement = await element.doc('1').get();
                await console.log(">>>>>>>>"+tempElement.data()['內容']);
