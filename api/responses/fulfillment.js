@@ -49,10 +49,6 @@ module.exports = function () {
         // Just for showing the order
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
-        outputMessage().then(string => {string});
-
-        agent.add(await getOptions());
-
 
         const outputMessage = async() => {
             var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
@@ -73,6 +69,9 @@ module.exports = function () {
             
             return output;
         }
+        outputMessage().then(string => {string});
+
+        agent.add(await getOptions());
 
 
 
