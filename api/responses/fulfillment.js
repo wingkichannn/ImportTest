@@ -54,13 +54,22 @@ module.exports = function () {
             var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-            var tempOutput;
-            console.log(JSON.stringify(optionsRef));
+            var generalOptionsRef = await db.collection('general').doc('option').getCollections();
+            //console.log(JSON.stringify(optionsRef));
             //Use for each to loop all collections > element = a collection
             for (const element of optionsRef) {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
+                output += await abc[count] + tempElement.data()['內容'] + ",  ";
+                //output += await abc[count] + tempElement.data()['內容'] + ",  ";
+                count++;
+                console.log(output);
+            }
+            for (const generalElement of generalOptionsRef) {
+                var tempElement = await generalElement.doc('1').get(); //First doc of each collection is the base case
+                console.log("++++" + tempElement.data()['內容']);
+               // console.log("----" + tempElement.data().title);
                 output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
