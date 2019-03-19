@@ -57,7 +57,7 @@ module.exports = function () {
             var tempOutput;
             console.log(JSON.stringify(optionsRef));
             //Use for each to loop all collections > element = a collection
-            for (element in optionsRef) {
+            for (const element of optionsRef) {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
