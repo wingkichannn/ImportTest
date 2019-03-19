@@ -46,9 +46,9 @@ module.exports = function () {
 
         var optionsRef = db.collection('surgery').doc(contextSurgery).collection('option').doc('specific');
         //console.log("Options " + optionsRef);
-        await optionsRef.getCollections().then(collections => {
+        optionsRef.getCollections().then(collections => {
             collections.forEach(collection => {
-                tempDoc = await collection.doc('1').get();
+                tempDoc = collection.doc('1').get();
                 console.log(tempDoc.data()['內容']);
 
             });
