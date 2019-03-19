@@ -39,7 +39,8 @@ module.exports = function () {
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
-        var chiName = db.collection('surgery').doc(contextSurgery).data()['內容'];
+
+        var chiName = db.collection('surgery').doc(contextSurgery).get().data()['內容'];
         console.log("ChiNAme is "+ chiName );
 
 
