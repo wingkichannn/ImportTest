@@ -50,7 +50,7 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
 
-        await getOptions();
+        agent.add(await getOptions());
 
 
         async function getOptions() {
@@ -68,8 +68,9 @@ module.exports = function () {
                 count++;
                 console.log(output);
             });
+            return output;
 
-            agent.add(output)
+            
 
         }
 
