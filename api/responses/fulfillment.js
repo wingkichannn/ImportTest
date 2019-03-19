@@ -44,10 +44,10 @@ module.exports = function () {
         var ChineseName = surgery.data()['內容'];
         console.log("ChiNAme is " + ChineseName);
 
-        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').get();
+        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
         optionsRef.forEach(element => {
                 console.log(element);
-                console.log(element.data());
+                console.log(element.doc('1'));
             });
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
