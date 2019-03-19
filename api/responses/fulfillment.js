@@ -37,7 +37,7 @@ module.exports = function () {
         // console.log("+++++++++++++" + outputContexts2);
 
         var outputContexts = agent.context.get('outputcontexts');
-        console.log('outputContexts: '+outputContexts);
+        console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery;
 
         var surgeryCol = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
@@ -46,6 +46,19 @@ module.exports = function () {
         console.log('surgery' + JSON.stringify(surgeryObj)); //Change it to JSON object > for viewing the content of object. 
         var surgeryChineseName = surgery.docs[0].data()['內容']; //String of the Chinese Name;
         console.log("內容是" + surgery.docs[0].data()['內容']);
+
+        var options = surgeryObj.collection('option').doc('specific');
+        options.getCollections().then(collections => {
+            collections.forEach(collection => {
+                var temp = collection.doc('1').data()['內容'];
+                console.log(">>內容是" + surgery.docs[0].data()['內容']);
+
+            });
+        });
+
+     
+
+
 
 
 
