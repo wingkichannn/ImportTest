@@ -55,6 +55,7 @@ module.exports = function () {
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
             var tempOutput;
+            console.log(JSON.stringify(optionsRef));
             //Use for each to loop all collections > element = a collection
             for (element in optionsRef) {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
