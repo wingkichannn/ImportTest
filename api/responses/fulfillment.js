@@ -34,6 +34,7 @@ module.exports = function () {
     // Show baseline case + all specific options with price.
     async function noDoctorName(agent) {
         var outputContexts = agent.context.get('outputContexts');
+        console.log("<<<<<<<<<<<"+outputContexts);
         var surgery = outputContexts.surgery;
         console.log("**** The surgery is "+surgery);
        // var lowerRange = await db.collection('surgery')
