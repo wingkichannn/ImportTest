@@ -41,7 +41,7 @@ module.exports = function () {
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
 
         var chiName = await db.collection('surgery').doc(contextSurgery).get();
-        console.log(">>>>" + chiName);
+        console.log(">>>>" + chiName.data()['內容']);
         console.log("ChiNAme is "+ chiName );
 
 
