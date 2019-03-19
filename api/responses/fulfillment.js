@@ -43,17 +43,22 @@ module.exports = function () {
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
         var ChineseName = surgery.data()['內容'];
         console.log("ChiNAme is " + ChineseName);
-
+        var abc =['A','B', 'C','D','E','F'];
+        var count =0;
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        console.log("***********"+optionsRef);
         var output  ="";
         output = await optionsRef.forEach(async element => {
             //console.log(element);
-            var tempElement = await element.doc('1').get();
-            console.log(">>>>>>>>" + tempElement.data()['內容']);
-            console.log("<<<<<<<" + tempElement.data().title);
-            output += tempElement.data()['內容'];
-            await console.log("..."+output);
+            
+            var tempElement = await element.doc('1').get().then(function(){
+                output += await abc[count]+tempElement.data()['內容']+",  ";
+                count++;
+                console.log(">>>>>>>>" + tempElement.data()['內容']);
+                console.log("<<<<<<<" + tempElement.data().title);
+               await console.log("..."+output);
+            });
+           
+            
         });
         await console.log(output);
 
