@@ -38,23 +38,26 @@ module.exports = function () {
 
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
-        var contextSurgery = outputContexts.parameters.surgery;
+        var contextSurgery = outputContexts.parameters.surgery; // >> 58
+        var chiName = db.collection('surgery').doc(contextSurgery).data()['內容'];
+        console.log("ChiNAme is "+ chiName );
 
-        var surgeryCol = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
-        var surgery = await surgeryCol.get(); // An object of a Surgery Doc
-        var surgeryObj = surgery.docs[0];
-        console.log('surgery' + JSON.stringify(surgeryObj)); //Change it to JSON object > for viewing the content of object. 
-        var surgeryChineseName = surgery.docs[0].data()['內容']; //String of the Chinese Name;
-        console.log("內容是" + surgery.docs[0].data()['內容']);
 
-        var options = surgeryCol.collection('option').doc('specific');
-        options.getCollections().then(collections => {
-            collections.forEach(collection => {
-                var temp = collection.doc('1').data()['內容'];
-                console.log(">>內容是" + surgery.docs[0].data()['內容']);
+        // var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
+        // var surgery = await surgeryDoc.get(); // An object of a Surgery Doc
+        // var surgeryObj = surgery.docs[0];
+        // console.log('surgery' + JSON.stringify(surgeryObj)); //Change it to JSON object > for viewing the content of object. 
+        // var surgeryChineseName = surgery.docs[0].data()['內容']; //String of the Chinese Name;
+        // console.log("內容是" + surgery.docs[0].data()['內容']);
 
-            });
-        });
+        // var options = surgeryCol.collection('option').doc('specific');
+        // options.getCollections().then(collections => {
+        //     collections.forEach(collection => {
+        //         var temp = collection.doc('1').data()['內容'];
+        //         console.log(">>內容是" + surgery.docs[0].data()['內容']);
+
+        //     });
+        // });
 
      
 
