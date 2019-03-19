@@ -49,6 +49,7 @@ module.exports = function () {
                 //console.log(element);
                 var tempElement = await element.doc('1').get();
                 console.log(">>>>>>>>"+tempElement.data()['內容']);
+                console.log("<<<<<<<"+ tempElement.data().title);
             });
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
