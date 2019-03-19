@@ -80,9 +80,13 @@ module.exports = function () {
             for(const element of optionsRef){
                 var optionDocs = await element.where('price', '>' , 0).get();
                 console.log("optionDocs is " + optionDocs);
-                for(const doc of optionDocs){
-                    console.log("..."+(await doc.get()).data().price);
-                }
+                optionDocs.forEach(doc => {
+                        console.log(doc.id);
+                        console.log(doc.data().price);
+                    });
+                // for(const doc of optionDocs){
+                //     console.log("..."+(await doc.get()).data().price);
+                // }
             }
             // await optionsRef.forEach(async element => {
             //     var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
