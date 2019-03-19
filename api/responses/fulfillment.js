@@ -45,11 +45,11 @@ module.exports = function () {
         console.log("ChiNAme is " + ChineseName);
 
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        optionsRef.forEach( async element => {
+        optionsRef.forEach(async element => {
                 //console.log(element);
                 var tempElement = await element.doc('1').get();
-                console.log(">>>>>>>>"+tempElement.data()['內容']);
-                console.log("<<<<<<<"+ tempElement.data().title);
+               await console.log(">>>>>>>>"+tempElement.data()['內容']);
+                await console.log("<<<<<<<"+ tempElement.data().title);
             });
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
