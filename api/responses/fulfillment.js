@@ -28,7 +28,7 @@ module.exports = function () {
         let params = agent.parameters;
         doctorName = params.doctorName;
         console.log("The doctor name is " + doctorName);
-        return agent.add('請問醫生名稱**');
+        agent.add('請問醫生名稱**');
     }
     async function noDoctorName(agent) {
         var lowerBaselinePrice
@@ -61,9 +61,7 @@ module.exports = function () {
         agent.add('請問醫院名稱**');
 
     }
-    async function noDoctorName(agent) {
 
-    }
     async function hospital(agent) {
         let params = agent.parameters;
         hospital = params.hospital;
