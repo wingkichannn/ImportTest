@@ -47,7 +47,7 @@ module.exports = function () {
         var surgeryChineseName = surgery.docs[0].data()['內容']; //String of the Chinese Name;
         console.log("內容是" + surgery.docs[0].data()['內容']);
 
-        var options = surgeryObj.collection('option').doc('specific');
+        var options = surgeryCol.collection('option').doc('specific');
         options.getCollections().then(collections => {
             collections.forEach(collection => {
                 var temp = collection.doc('1').data()['內容'];
