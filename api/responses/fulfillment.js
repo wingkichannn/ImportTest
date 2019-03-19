@@ -46,7 +46,7 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-        var output = "";
+        var output = " ";
         output = await optionsRef.forEach(async element => {
             //console.log(element);
 
