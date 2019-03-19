@@ -48,7 +48,8 @@ module.exports = function () {
         //console.log("Options " + optionsRef);
         optionsRef.getCollections().then(collections => {
             collections.forEach(collection => {
-                tempDoc = collection.doc('1').get();
+                var tempDoc = collection.doc('1').get();
+                console.log("TempDoc is " +tempDoc);
                 console.log(tempDoc.data()['內容']);
 
             });
