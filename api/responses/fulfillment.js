@@ -33,8 +33,8 @@ module.exports = function () {
 
     // Show baseline case + all specific options with price.
     async function noDoctorName(agent) {
-        var outputContexts2 = req.body.queryResults.outputContexts;
-        console.log("+++++++++++++" + outputContexts2);
+        // var outputContexts2 = req.body.queryResults.outputContexts;
+        // console.log("+++++++++++++" + outputContexts2);
 
         var outputContexts = agent.context.get('projects/wecarebill-3-3-2019/agent/sessions/4cd5a4b8-bff0-17e9-8d21-36b4810ebc0b/contexts/outputcontexts');
         console.log("<<<<<<<<<<<"+outputContexts);
