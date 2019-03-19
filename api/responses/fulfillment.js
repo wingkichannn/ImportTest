@@ -53,22 +53,23 @@ module.exports = function () {
         async function getOptions() {
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
-
+            var tempOutput;
             //Use for each to loop all collections > element = a collection
             var temp = await optionsRef.forEach(async element => {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
-                output += await abc[count] + tempElement.data()['內容'] + ",  ";
+                tempOutput += await abc[count] + tempElement.data()['內容'] + ",  ";
+                //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
                 console.log(output);
             });
-            finish = 1;
+            return tempOutput;
+            
         }
-        output += await getOptions();
-        if (finish == 1) {
-            console.log("....:::" + output);
-        }
+       // output += await getOptions();
+        agent.add(output += await getOptions());
+        
 
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
