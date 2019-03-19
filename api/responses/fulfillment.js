@@ -40,9 +40,15 @@ module.exports = function () {
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
 
-        var chiName = await db.collection('surgery').doc(contextSurgery).get();
-        console.log(">>>>" + chiName.data()['內容']);
-        console.log("ChiNAme is "+ chiName );
+        var surgery = await db.collection('surgery').doc(contextSurgery).get();
+        var ChineseName = surgery.data()['內容'];
+        console.log("ChiNAme is "+ ChineseName );
+
+        var options = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').get();
+        console.log("Options " +options);
+        options.forEach(element => {
+                console.log(element.data())
+            });
 
 
         // var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
