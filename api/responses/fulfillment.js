@@ -39,16 +39,16 @@ module.exports = function () {
         var outputContexts = agent.context.get('outputcontexts');
         console.log(outputContexts);
         var contextSurgery = outputContexts.parameters.surgery;
-        try {
-            var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery);
-            var surgery = surgeryDoc.get();
-            console.log(surgery);
-            console.log("內容是" + surgery.data()['內容']);
+
+        var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery);
+        var surgery = surgeryDoc.get();
+        console.log(surgery);
+        console.log("內容是" + surgery.data()['內容']);
 
 
-        }
+
         //console.log("**** The surgery is "+surgery);
-       // var lowerRange = await db.collection('surgery')
+        // var lowerRange = await db.collection('surgery')
         // var lowerBaselinePrice
         // var upperBaselinePrice
         // var surgery = await db.collection('surgery').doc('58');
