@@ -26,14 +26,14 @@ module.exports = function () {
     async function surgery(agent) {
         let conv = agent.conv();
         let params = agent.parameters;
-        doctorName = params.doctorName;
-        console.log("The doctor name is " + doctorName);
+        let surgery = params.surgery;
+        console.log("The surgery name is " + surgery);
         agent.add('請問醫生名稱**');
     }
     async function noDoctorName(agent) {
         var lowerBaselinePrice
         var upperBaselinePrice
-        var surgery = await db.collection('surgery').doc('58').get();
+        var surgery = await db.collection('surgery').doc('58');
         var general = await db.collection('general').doc('option').get();
         var surgeryOptions = await surgery.collection('option').doc().get()
         surgeryOptions.forEach(element => {
@@ -45,8 +45,8 @@ module.exports = function () {
         // var surgery1 = await db.collection('surgery').doc('58');
         // var surgery = await db.collection('surgery').doc('58').get();
 
-        console.log(surgery.data().lowerBaselinePrice);
-        console.log(upperBaselinePrice);
+        console.log(">>>>>>>"+(await surgery.get()).data().lowerBaselinePrice);
+        console.log(">>>>>>>>"+upperBaselinePrice);
 
         agent.add(lowerBaselinePrice);
 
