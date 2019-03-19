@@ -50,6 +50,9 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
         var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
+        output = await getOptions();
+        agent.add(output);
+
         async function getOptions() {
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
@@ -64,11 +67,11 @@ module.exports = function () {
                 count++;
                 console.log(output);
             });
-            return tempOutput;
+           
             
         }
-       // output += await getOptions();
-        agent.add(output);
+        
+        
         
 
         //console.log("Options " + optionsRef);
