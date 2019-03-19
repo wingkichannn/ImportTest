@@ -50,6 +50,7 @@ module.exports = function () {
             collections.forEach(collection => {
                 var tempDoc = collection.doc('1').get();
                 console.log("TempDoc is " +tempDoc);
+                console.log('surgery' + JSON.stringify(tempDoc)); 
                 console.log(tempDoc.data()['內容']);
 
             });
