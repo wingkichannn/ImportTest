@@ -67,8 +67,9 @@ module.exports = function () {
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
                 console.log(output);
-            });
-            console.log("The returned output: "+ output);
+            }).then(
+            console.log("The returned output: "+ output)
+            )
             return output;
 
             
