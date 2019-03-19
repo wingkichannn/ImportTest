@@ -36,7 +36,7 @@ module.exports = function () {
         // var outputContexts2 = req.body.queryResults.outputContexts;
         // console.log("+++++++++++++" + outputContexts2);
 
-        var outputContexts = agent.getContext('outputcontexts');
+        var outputContexts = agent.context.get(('outputcontexts');
         console.log("<<<<<<<<<<<"+outputContexts);
         var surgery = outputContexts.parameters.surgery;
         console.log("**** The surgery is "+surgery);
