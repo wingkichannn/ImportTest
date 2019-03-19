@@ -47,9 +47,9 @@ module.exports = function () {
         var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
         optionsRef.forEach( element => {
                 //console.log(element);
-                var tempElement = await element.doc('1').get();
-               await console.log(">>>>>>>>"+tempElement.data()['內容']);
-                await console.log("<<<<<<<"+ tempElement.data().title);
+                var tempElement = element.doc('1').get();
+               console.log(">>>>>>>>"+tempElement.data()['內容']);
+                console.log("<<<<<<<"+ tempElement.data().title);
             });
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
