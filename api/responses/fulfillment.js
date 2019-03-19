@@ -41,8 +41,9 @@ module.exports = function () {
         var contextSurgery = outputContexts.parameters.surgery;
 
         var surgeryCol = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
-        var surgery = await surgeryCol.get();
-        console.log('surgery' + surgery.docs[0]);
+        var surgery = await surgeryCol.get().docs[0]; // An object of a Surgery Doc
+        console.log('surgery' + JSON.stringify(surgery)); //Change it to JSON object > for viewing the content of object. 
+        var surgeryChineseName = surgery.docs[0].data()['內容']; //String of the Chinese Name;
         console.log("內容是" + surgery.docs[0].data()['內容']);
 
 
