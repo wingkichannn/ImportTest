@@ -30,25 +30,31 @@ module.exports = function () {
         console.log("The surgery name is " + surgery);
         agent.add('請問醫生名稱**');
     }
+
+    // Show baseline case + all specific options with price.
     async function noDoctorName(agent) {
-        var lowerBaselinePrice
-        var upperBaselinePrice
-        var surgery = await db.collection('surgery').doc('58');
-        var general = await db.collection('general').doc('option').get();
-        var surgeryOptions = await surgery.collection('option').get()
-        surgeryOptions.forEach(element => {
-            console.log(element.id);
-            console.log(element.data())
-        });
-        await surgery.collection('option').doc('general').collection('A').get()
+        var outputContexts = agent.context.get('outputContexts');
+        var surgery = outputContexts.surgery;
+        console.log("**** The surgery is "+surgery);
+       // var lowerRange = await db.collection('surgery')
+        // var lowerBaselinePrice
+        // var upperBaselinePrice
+        // var surgery = await db.collection('surgery').doc('58');
+        // var general = await db.collection('general').doc('option').get();
+        // var surgeryOptions = await surgery.collection('option').get()
+        // surgeryOptions.forEach(element => {
+        //     console.log(element.id);
+        //     console.log(element.data())
+        // });
+        // await surgery.collection('option').doc('general').collection('A').get()
 
         // var surgery1 = await db.collection('surgery').doc('58');
         // var surgery = await db.collection('surgery').doc('58').get();
 
-        console.log(">>>>>>>"+(await surgery.get()).data().lowerBaselinePrice);
-        console.log(">>>>>>>>"+upperBaselinePrice);
+        // console.log(">>>>>>>"+(await surgery.get()).data().lowerBaselinePrice);
+        // console.log(">>>>>>>>"+upperBaselinePrice);
 
-        agent.add(lowerBaselinePrice);
+        // agent.add(lowerBaselinePrice);
 
     }
     async function doctorName(agent) {
