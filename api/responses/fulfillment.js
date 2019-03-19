@@ -50,13 +50,13 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
 
-        const outputMessage = async() => {
+        async function getOptions() {
             var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
             var tempOutput;
             //Use for each to loop all collections > element = a collection
-            await optionsRef.forEach(async element => {
+            for (element in optionsRef) {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
@@ -64,14 +64,24 @@ module.exports = function () {
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
                 console.log(output);
-            });
-            console.log("The returned output: "+ output)
-            
-            return output;
-        }
-        outputMessage().then(string => {console.log(string)});
+            }
+            // await optionsRef.forEach(async element => {
+            //     var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
+            //     console.log(">>>>>>>>" + tempElement.data()['內容']);
+            //     console.log("<<<<<<<" + tempElement.data().title);
+            //     output += await abc[count] + tempElement.data()['內容'] + ",  ";
+            //     //output += await abc[count] + tempElement.data()['內容'] + ",  ";
+            //     count++;
+            //     console.log(output);
+            // });
+            console.log("The returned output: " + output)
 
-        agent.add(outputMessage());
+            return output;
+
+
+
+        }
+        agent.add(await getOptions());
 
 
 
