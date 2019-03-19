@@ -40,10 +40,10 @@ module.exports = function () {
         console.log(outputContexts);
         var contextSurgery = outputContexts.parameters.surgery;
 
-        var surgeryDoc = db.collection('surgery').where('title', '==', contextSurgery);
-        var surgery = surgeryDoc.get();
-        console.log(surgery);
-        console.log("內容是" + surgery.data()['內容']);
+        var surgeryCol = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
+        var surgery = await surgeryCol.get();
+        console.log(surgery[0]);
+        console.log("內容是" + surgery[0].data()['內容']);
 
 
 
