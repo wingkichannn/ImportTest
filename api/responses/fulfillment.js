@@ -46,8 +46,12 @@ module.exports = function () {
 
         var options = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').get();
         console.log("Options " +options);
-        options.forEach(element => {
-                console.log(element.data())
+        options.getCollections().then(collections => {
+                collections.forEach(collection => {
+                   
+                  console.log(collection.get());
+    
+                });
             });
 
 
