@@ -37,13 +37,13 @@ module.exports = function () {
         // console.log("+++++++++++++" + outputContexts2);
 
         var outputContexts = agent.context.get('outputcontexts');
-        console.log(outputContexts);
+        console.log('outputContexts: '+outputContexts);
         var contextSurgery = outputContexts.parameters.surgery;
 
         var surgeryCol = db.collection('surgery').where('title', '==', contextSurgery); // collection reference
         var surgery = await surgeryCol.get();
-        console.log(surgery[0]);
-        console.log("內容是" + surgery[0].data()['內容']);
+        console.log('surgery' + surgery.docs[0]);
+        console.log("內容是" + surgery.docs[0].data()['內容']);
 
 
 
