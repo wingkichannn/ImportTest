@@ -69,9 +69,9 @@ module.exports = function () {
             
             return output;
         }
-        outputMessage().then(string => {string});
+        outputMessage().then(string => {console.log(string)});
 
-        agent.add(await getOptions());
+        agent.add(outputMessage());
 
 
 
