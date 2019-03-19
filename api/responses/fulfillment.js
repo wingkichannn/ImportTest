@@ -44,9 +44,9 @@ module.exports = function () {
         var ChineseName = surgery.data()['內容'];
         console.log("ChiNAme is "+ ChineseName );
 
-        var options = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').get();
-        console.log("Options " +options);
-        options.getCollections().then(collections => {
+        var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific');
+        console.log("Options " +optionsRef);
+        optionsRef.getCollections().then(collections => {
                 collections.forEach(collection => {
                    
                   console.log(collection.get());
