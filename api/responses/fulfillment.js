@@ -9,7 +9,7 @@ module.exports = function () {
     const agent = new WebhookClient({ request: req, response: res });
 
 
-    var db = sails.admin.firestore();
+    var db = sails.firebaseAdmin.firestore();
     
 
     // FUNCTIONS FOR INTENTS
