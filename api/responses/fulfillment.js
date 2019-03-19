@@ -59,7 +59,7 @@ module.exports = function () {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
                 console.log(">>>>>>>>" + tempElement.data()['內容']);
                 console.log("<<<<<<<" + tempElement.data().title);
-                tempOutput += await abc[count] + tempElement.data()['內容'] + ",  ";
+                output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
                 console.log(output);
@@ -68,7 +68,7 @@ module.exports = function () {
             
         }
        // output += await getOptions();
-        agent.add(output += await getOptions());
+        agent.add(output);
         
 
         //console.log("Options " + optionsRef);
