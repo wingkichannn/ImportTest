@@ -81,14 +81,22 @@ module.exports = function () {
                 var optionDocs = await element.where('price', '>' , 0).get();
                 console.log("optionDocs is " + optionDocs);
                 optionDocs.forEach(doc => {
-                        console.log(doc.id);
-                        console.log(doc.data().price);
+                        // console.log(doc.id);
+                        // console.log(doc.data().price);
                         output += doc.data()['內容'] +" : $" +doc.data().price +".";
                     });
-                // for(const doc of optionDocs){
-                //     console.log("..."+(await doc.get()).data().price);
-                // }
             }
+            for(const element of optionsRef){
+                var optionDocs = await element.where('price', '==' , -1).get();
+                console.log("optionDocs is " + optionDocs);
+                optionDocs.forEach(doc => {
+                        // console.log(doc.id);
+                        // console.log(doc.data().price);
+                        output += doc.data()['內容'] +". ";
+                    });
+            }
+            output+="的收費我們暫時沒有個案。";
+
             // await optionsRef.forEach(async element => {
             //     var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
             //     console.log(">>>>>>>>" + tempElement.data()['內容']);
