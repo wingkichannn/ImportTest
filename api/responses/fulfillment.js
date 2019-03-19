@@ -38,7 +38,7 @@ module.exports = function () {
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
-
+        var finished = 0;
         // Search the document of the requested surgery from firebase
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
 
@@ -49,7 +49,7 @@ module.exports = function () {
         // Just for showing the order
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
-        var output = ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
+        var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
         async function getOptions() {
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
@@ -63,9 +63,12 @@ module.exports = function () {
                 count++;
                 console.log(output);
             });
+            finish = 1;
         }
-        await getOptions();
-        console.log("....:::"+output);
+        output += await getOptions();
+        if (finish == 1) {
+            console.log("....:::" + output);
+        }
 
         //console.log("Options " + optionsRef);
         // optionsRef.getCollections().then(collections => {
