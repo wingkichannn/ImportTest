@@ -50,7 +50,7 @@ module.exports = function () {
         var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
         var count = 0;
         var output = ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
-        function getOptions() {
+        async function getOptions() {
             //Get all collections of "Specific" documents
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
 
