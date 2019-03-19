@@ -75,6 +75,14 @@ module.exports = function () {
                 count++;
                 console.log(output);
             }
+            output += "主要影響收費的選項及某些個案價的附加費如下: ";
+
+            for(const element of optionsRef){
+                var optionDocs = await element.get();
+                for(const doc of optionsDocs){
+                    console.log((await doc.get()).price);
+                }
+            }
             // await optionsRef.forEach(async element => {
             //     var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
             //     console.log(">>>>>>>>" + tempElement.data()['內容']);
