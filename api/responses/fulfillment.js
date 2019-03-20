@@ -99,8 +99,7 @@ module.exports = function () {
             return output;
         }
         
-        agent.add(await getOptions());
-       agent.add(await getDoctorList());
+        agent.add([await getOptions(),await getDoctorList()]);
        
         async function getDoctorList() {
             var countNum = 1;
