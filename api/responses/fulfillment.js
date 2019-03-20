@@ -98,7 +98,7 @@ module.exports = function () {
             console.log("The returned output: " + output)
             return output;
         }
-        var outputMessage =await getOptions() +"\n" +await getDoctorList();
+        var outputMessage =await getOptions() +"\n\n" +await getDoctorList();
         agent.add(outputMessage);
        
         async function getDoctorList() {
