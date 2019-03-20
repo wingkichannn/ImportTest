@@ -96,9 +96,9 @@ module.exports = function () {
             }
             output+="的收費我們暫時沒有個案。";
             console.log("The returned output: " + output)
-            return output;
+            return output+"                    ";
         }
-        var outputMessage =await getOptions() +"              " +await getDoctorList();
+        var outputMessage =await getOptions() +await getDoctorList();
         agent.add(outputMessage);
        
         async function getDoctorList() {
