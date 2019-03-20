@@ -100,7 +100,8 @@ module.exports = function () {
         }
         
         agent.add(await getOptions());
-        getDoctorList();
+       await getDoctorList();
+       console.log("The end doctor list is : "+doctorList);
 
         async function getDoctorList() {
             var countNum = 1;
@@ -110,7 +111,7 @@ module.exports = function () {
                 // console.log(doc.id);
                 // console.log(doc.data().price);
                 doctorList += countNum+"."+ doc.data().name +" ";
-                count++;
+                countNum++;
                 console.log("The doctor list is : "+doctorList);
             });
         }
