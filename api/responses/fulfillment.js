@@ -38,7 +38,7 @@ module.exports = function () {
         var outputContexts = agent.context.get('outputcontexts');
         console.log('outputContexts: ' + outputContexts);
         var contextSurgery = outputContexts.parameters.surgery; // >> 58
-        var finished = 0;
+
         // Search the document of the requested surgery from firebase
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
 
@@ -47,20 +47,19 @@ module.exports = function () {
         console.log("ChiNAme is " + ChineseName);
 
         // Just for showing the order
-        var abc = ['A', 'B', 'C', 'D', 'E', 'F'];
+        var abc = ['A', 'B', 'C', 'D', 'E', 'F','G','H','I','J', 'K','L','M' ,'N','O','P','Q','R','S', 'T','U','V','W','X','Y','Z'];
         var count = 0;
 
         async function getOptions() {
             var output = await ChineseName + '基線案例收費通常為' + surgery.data().lowerBaselinePrice + "至" + surgery.data().upperBaselinePrice + "，基線案例: ";
-            //Get all collections of "Specific" documents
+            //Get all collections of "Specific" document
             var optionsRef = await db.collection('surgery').doc(contextSurgery).collection('option').doc('specific').getCollections();
             var generalOptionsRef = await db.collection('general').doc('option').getCollections();
             //console.log(JSON.stringify(optionsRef));
             //Use for each to loop all collections > element = a collection
             for (const element of optionsRef) {
                 var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
-                console.log(">>>>>>>>" + tempElement.data()['內容']);
-                console.log("<<<<<<<" + tempElement.data().title);
+                console.log("Specific內容是: " + tempElement.data()['內容']);
                 output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 count++;
@@ -68,7 +67,7 @@ module.exports = function () {
             }
             for (const generalElement of generalOptionsRef) {
                 var tempElement = await generalElement.doc('1').get(); //First doc of each collection is the base case
-                console.log("++++" + tempElement.data()['內容']);
+                console.log("General內容是:"  + tempElement.data()['內容']);
                // console.log("----" + tempElement.data().title);
                 output += await abc[count] + tempElement.data()['內容'] + ",  ";
                 //output += await abc[count] + tempElement.data()['內容'] + ",  ";
@@ -96,8 +95,29 @@ module.exports = function () {
                     });
             }
             output+="的收費我們暫時沒有個案。";
+            console.log("The returned output: " + output)
+            return output;
+        }
+        
+        agent.add(await getOptions());
+        getDoctorList();
 
-            // await optionsRef.forEach(async element => {
+        async function getDoctorList() {
+            var countNum = 1;
+            var doctorList = "而根據其他病人分享的資料，做"+ChineseName+"且收費接近中位數的醫生有: ";
+            var doctorDocs = await db.collection('surgery').doc(contextSurgery).collection('doctor').where('price' ,'<=',surgery.data().upperBaselinePrice).get();
+            doctorDocs.forEach(doc => {
+                // console.log(doc.id);
+                // console.log(doc.data().price);
+                doctorList += countNum+"."+ doc.data().name +" ";
+                count++;
+                console.log("The doctor list is : "+doctorList);
+            });
+        }
+
+
+        //ForEach of a list of collections
+        // await optionsRef.forEach(async element => {
             //     var tempElement = await element.doc('1').get(); //First doc of each collection is the base case
             //     console.log(">>>>>>>>" + tempElement.data()['內容']);
             //     console.log("<<<<<<<" + tempElement.data().title);
@@ -106,14 +126,6 @@ module.exports = function () {
             //     count++;
             //     console.log(output);
             // });
-            console.log("The returned output: " + output)
-
-            return output;
-
-
-
-        }
-        agent.add(await getOptions());
 
 
 
@@ -145,12 +157,6 @@ module.exports = function () {
 
         //     });
         // });
-
-
-
-
-
-
 
         //console.log("**** The surgery is "+surgery);
         // var lowerRange = await db.collection('surgery')
