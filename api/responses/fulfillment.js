@@ -101,19 +101,20 @@ module.exports = function () {
         
         agent.add(await getOptions());
        await getDoctorList();
-       console.log("The end doctor list is : "+doctorList);
-
+       
         async function getDoctorList() {
             var countNum = 1;
             var doctorList = "而根據其他病人分享的資料，做"+ChineseName+"且收費接近中位數的醫生有: ";
             var doctorDocs = await db.collection('surgery').doc(contextSurgery).collection('doctor').where('price' ,'<=',surgery.data().upperBaselinePrice).get();
-            doctorDocs.forEach(doc => {
+            await doctorDocs.forEach(doc => {
                 // console.log(doc.id);
                 // console.log(doc.data().price);
                 doctorList += countNum+"."+ doc.data().name +" ";
                 countNum++;
                 console.log("The doctor list is : "+doctorList);
             });
+            console.log("The end doctor list is : "+doctorList);
+
         }
 
 
