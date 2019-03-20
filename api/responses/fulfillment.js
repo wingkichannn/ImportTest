@@ -174,14 +174,7 @@ module.exports = function () {
         var contextSurgery = outputContexts.parameters.surgery;
         var surgery = await db.collection('surgery').doc(contextSurgery).get();
         var ChineseName = surgery.data()['內容'];
-        agent.add(await getDoctorList()+"，但個別醫生收費有異，而醫療服務收費昤會作出修改，而病人情況因人而異，如有需要請向你的醫生請教。本平台只搜集病人個案，會力求資料正確，內容只供參考之用，未得同意，不得作其他商業用途，唯最終資料準確性，請諮詢醫生及專業人仕。");
-        const response = {
-            followupEventInput: {
-              name: "followup",
-          }
-         }
-         return agent.response_.status(200).send(response);
-         
+        agent.add(await getDoctorList()+'，但個別醫生收費有異，而醫療服務收費昤會作出修改，而病人情況因人而異，如有需要請向你的醫生請教。本平台只搜集病人個案，會力求資料正確，內容只供參考之用，未得同意，不得作其他商業用途，唯最終資料準確性，請諮詢醫生及專業人仕。 若有其他的查詢和分享，請輸入"again" ; 若無，請輸入"end" ');
        
         async function getDoctorList() {
             var countNum = 1;
@@ -243,14 +236,6 @@ module.exports = function () {
     async function followup(agent){
 
     }
-    async function restart(agent){
-        const response = {
-            followupEventInput: {
-              name: "WELCOME",
-          }
-         }
-         return agent.response_.status(200).send(response);
-    }
 
     let intentMap = new Map();
     intentMap.set('Default Welcome Intent', welcome);
@@ -259,7 +244,6 @@ module.exports = function () {
     intentMap.set('user provides doctor name', doctorName);
     intentMap.set('user does not provide doctor name', noDoctorName)
     intentMap.set('followup', followup);
-    intentMap.set('restart', restart);
     intentMap.set('user provides hospital', hospital);
     intentMap.set('user provides price', price);
     intentMap.set('user wants to see doctor list', doctorList);
