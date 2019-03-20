@@ -181,6 +181,7 @@ module.exports = function () {
           }
          }
          return agent.response_.status(200).send(response);
+         
        
         async function getDoctorList() {
             var countNum = 1;
@@ -245,7 +246,7 @@ module.exports = function () {
     async function restart(agent){
         const response = {
             followupEventInput: {
-              name: "welcome",
+              name: "WELCOME",
           }
          }
          return agent.response_.status(200).send(response);
