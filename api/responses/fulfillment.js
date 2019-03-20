@@ -192,10 +192,15 @@ module.exports = function () {
         }
     }
     async function noDoctorList(agent){
-        let conv = agent.conv();
-        conv.followup('followup');
-        agent.add("nodoctorlist");
-        
+        // let conv = agent.conv();
+        // conv.followup('followup');
+        // agent.add("nodoctorlist");
+        const response = {
+            followupEventInput: {
+              name: "followup",
+          }
+         }
+         return agent.response_.status(200).send(response);
         
 
     }
