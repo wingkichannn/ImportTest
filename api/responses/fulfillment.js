@@ -98,24 +98,10 @@ module.exports = function () {
             console.log("The returned output: " + output)
             return output+"                    ";
         }
-        var outputMessage =await getOptions() +await getDoctorList();
+        var outputMessage =await getOptions()+". 如要查詢做此手術的醫生名單，請輸入yes，否則請輸入no ";
         agent.add(outputMessage);
        
-        async function getDoctorList() {
-            var countNum = 1;
-            var doctorList = "而根據其他病人分享的資料，做"+ChineseName+"且收費接近中位數的醫生有: ";
-            var doctorDocs = await db.collection('surgery').doc(contextSurgery).collection('doctor').where('price' ,'<=',surgery.data().upperBaselinePrice).get();
-            await doctorDocs.forEach(doc => {
-                // console.log(doc.id);
-                // console.log(doc.data().price);
-                doctorList += countNum+"."+ doc.data().name +" ";
-                countNum++;
-                console.log("The doctor list is : "+doctorList);
-            });
-            console.log("The end doctor list is : "+doctorList);
-            return doctorList;
-
-        }
+        
 
 
         //ForEach of a list of collections
@@ -182,6 +168,37 @@ module.exports = function () {
         // agent.add(lowerBaselinePrice);
 
     }
+    async function doctorList(agent){
+        var outputContexts = agent.context.get('outputcontexts');
+        console.log('outputContexts: ' + outputContexts);
+        var contextSurgery = outputContexts.parameters.surgery;
+        var surgery = await db.collection('surgery').doc(contextSurgery).get();
+        var ChineseName = surgery.data()['內容'];
+        agent.add(await getDoctorList());
+        async function getDoctorList() {
+            var countNum = 1;
+            var doctorList = "而根據其他病人分享的資料，做"+ChineseName+"且收費接近中位數的醫生有: ";
+            var doctorDocs = await db.collection('surgery').doc(contextSurgery).collection('doctor').where('price' ,'<=',surgery.data().upperBaselinePrice).get();
+            await doctorDocs.forEach(doc => {
+                // console.log(doc.id);
+                // console.log(doc.data().price);
+                doctorList += countNum+"."+ doc.data().name +" ";
+                countNum++;
+                console.log("The doctor list is : "+doctorList);
+            });
+            console.log("The end doctor list is : "+doctorList);
+            return doctorList;
+
+        }
+    }
+    async function noDoctorList(agent){
+        let conv = agent.conv();
+        conv.followup('followup');
+        agent.add("nodoctorlist");
+        
+        
+
+    }
     async function doctorName(agent) {
         let params = agent.parameters;
         doctorName = params.doctorName;
@@ -219,6 +236,8 @@ module.exports = function () {
     intentMap.set('user does not provide doctor name', noDoctorName)
     intentMap.set('user provides hospital', hospital);
     intentMap.set('user provides price', price);
+    intentMap.set('user want to see doctor list', doctorList);
+    intentMap.set('user does not want to see doctor list', noDoctorList);
     // intentMap.set('user does not provide doctor name', noDoctorName);
     // intentMap.set('user wants to see doctor list', doctorlist);
     // intentMap.set('follow up', followUp);
