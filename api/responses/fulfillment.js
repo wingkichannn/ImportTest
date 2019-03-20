@@ -236,7 +236,7 @@ module.exports = function () {
     intentMap.set('user does not provide doctor name', noDoctorName)
     intentMap.set('user provides hospital', hospital);
     intentMap.set('user provides price', price);
-    intentMap.set('user want to see doctor list', doctorList);
+    intentMap.set('user wants to see doctor list', doctorList);
     intentMap.set('user does not want to see doctor list', noDoctorList);
     // intentMap.set('user does not provide doctor name', noDoctorName);
     // intentMap.set('user wants to see doctor list', doctorlist);
