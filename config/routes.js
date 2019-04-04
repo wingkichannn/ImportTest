@@ -29,7 +29,7 @@ module.exports.routes = {
   // '/': {
   //   view: 'pages/homepage'
   // },
-
+  '/main/upload': 'MainController.upload',
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

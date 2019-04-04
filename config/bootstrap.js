@@ -37,12 +37,13 @@ module.exports.bootstrap = async function(done) {
   // ]);
   // ```
 
-  var admin = require('firebase-admin');
 
-  var serviceAccount = require(sails.config.appPath + '/wecarebill-92132-firebase-adminsdk-7usxj-6240df0e36.json');
+  var admin = require('firebase-admin');
+  var serviceAccount = require(sails.config.appPath + '/https://testing-d68ea-firebase-adminsdk-jl7jl.json');
   admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://wecarebill-92132.firebaseio.com'
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://testing-d68ea.firebaseio.com'
+
 
   });
 
