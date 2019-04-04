@@ -24,7 +24,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
  'ALL /': 'MainController.fulfill',
- 'GET /index2' :  'MainController.index2',
+//  'GET /index2' :  'MainController.index2',
  //'GET /index2' :  'FulfillmentController.index2',
   // '/': {
   //   view: 'pages/homepage'

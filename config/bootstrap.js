@@ -39,7 +39,7 @@ module.exports.bootstrap = async function(done) {
 
 
   var admin = require('firebase-admin');
-  var serviceAccount = require(sails.config.appPath + '/https://testing-d68ea-firebase-adminsdk-jl7jl.json');
+  var serviceAccount = require(sails.config.appPath + '/testing-d68ea-firebase-adminsdk-jl7jl-05994dc0b1.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://testing-d68ea.firebaseio.com'
