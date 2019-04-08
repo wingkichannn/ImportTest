@@ -30,7 +30,7 @@ module.exports = {
     // const data = require("./fakedb.json");
 
     //...
-   
+
     upload: async function (req, res) {
 
         if (req.method == 'GET')
@@ -73,8 +73,8 @@ module.exports = {
         });
     },
 
-///////////////////////////////////////////////////////////////////////////
-upload: async function (req, res) {
+    ///////////////////////////////////////////////////////////////////////////
+    upload: async function (req, res) {
 
         if (req.method == 'GET')
             return res.view('main/upload');
@@ -106,6 +106,58 @@ upload: async function (req, res) {
                     });
                 }
 
+                index++;
+            }).on("end", function () {
+                batch.commit().then(function () {
+                    return res.ok('csv file imported.');
+                });
+
+            });
+        });
+    },
+    //////////////////////////////////////////////////////////////////////////////
+    upload2: async function (req, res) {
+
+
+        if (req.method == 'GET')
+            return res.view('main/upload');
+
+        req.file('optionmapping').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
+            if (err) { return res.serverError(err); }
+            if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
+
+            var db = sails.firebaseAdmin.firestore();
+            var optionmapping = require("fast-csv");
+
+            var index = 0;
+
+            var batch = db.batch();
+
+            optionmapping.fromPath(uploadedFiles[0].fd, { headers: false }).on("data", function (data) {
+                if (index == 0 || index == 1) {
+                    index++;
+                    return;
+                }
+
+                // console.log()
+                // console.log(data);
+                if (data[1].includes('General') && data[2]) {
+
+
+                    var optionNum = 1;
+                    var inputCount = 5;
+                    while (data[inputCount] != "") {
+                        batch.set(db.collection('general').doc('option').collection(data[2]).doc(optionNum), {
+                            "content": data[inputCount],
+                            //             // "percentage": data[],
+                            //             // "price": data[],
+                            //             // "title" : data[],
+                            "內容": data[inputCount],
+                        });
+                    }
+                    inputCount++;
+                    optionNum++;
+                }
                 index++;
             }).on("end", function () {
                 batch.commit().then(function () {
