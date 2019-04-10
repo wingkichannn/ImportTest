@@ -27,150 +27,98 @@ module.exports = {
 
         })
     },
-    // const data = require("./fakedb.json");
 
-    //...
+    // ///////////////////////////////////////////////////////////////////////////
+    // upload: async function (req, res) {
 
-    upload: async function (req, res) {
+    //     if (req.method == 'GET')
+    //         return res.view('main/upload');
 
-        if (req.method == 'GET')
-            return res.view('main/upload');
+    //     req.file('surgeryno').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
+    //         if (err) { return res.serverError(err); }
+    //         if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
 
-        req.file('surgeryno').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
-            if (err) { return res.serverError(err); }
-            if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
+    //         var db = sails.firebaseAdmin.firestore();
+    //         var surgeryno = require("fast-csv");
+    //         // var optionmap = require("fast-csv");
+    //         var index = 0;
 
-            var db = sails.firebaseAdmin.firestore();
-            var surgeryno = require("fast-csv");
-            // var optionmap = require("fast-csv");
-            var index = 0;
+    //         var batch = db.batch();
 
-            var batch = db.batch();
+    //         surgeryno.fromPath(uploadedFiles[0].fd, { headers: false }).on("data", function (data) {
+    //             if (index == 0) {
+    //                 index++;
+    //                 return;
+    //             }
 
-            surgeryno.fromPath(uploadedFiles[0].fd, { headers: false }).on("data", function (data) {
-                if (index == 0) {
-                    index++;
-                    return;
-                }
+    //             // console.log()
+    //             // console.log(data);
+    //             if (data[0]) {
 
-                // console.log()
-                // console.log(data);
-                if (data[0]) {
+    //                 batch.set(db.collection('surgery').doc(data[0]), {
+    //                     "content": data[1],
+    //                     "內容": data[2] ? data[2] : '',
+    //                 });
+    //             }
 
-                    batch.set(db.collection('surgery').doc(data[0]), {
-                        "content": data[1],
-                        "內容": data[2] ? data[2] : '',
-                    });
-                }
+    //             index++;
+    //         }).on("end", function () {
+    //             batch.commit().then(function () {
+    //                 return res.ok('csv file imported.');
+    //             });
 
-                index++;
-            }).on("end", function () {
-                batch.commit().then(function () {
-                    return res.ok('csv file imported.');
-                });
-
-            });
-        });
-    },
-
-    ///////////////////////////////////////////////////////////////////////////
-    upload: async function (req, res) {
-
-        if (req.method == 'GET')
-            return res.view('main/upload');
-
-        req.file('surgeryno').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
-            if (err) { return res.serverError(err); }
-            if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
-
-            var db = sails.firebaseAdmin.firestore();
-            var surgeryno = require("fast-csv");
-            // var optionmap = require("fast-csv");
-            var index = 0;
-
-            var batch = db.batch();
-
-            surgeryno.fromPath(uploadedFiles[0].fd, { headers: false }).on("data", function (data) {
-                if (index == 0) {
-                    index++;
-                    return;
-                }
-
-                // console.log()
-                // console.log(data);
-                if (data[0]) {
-
-                    batch.set(db.collection('surgery').doc(data[0]), {
-                        "content": data[1],
-                        "內容": data[2] ? data[2] : '',
-                    });
-                }
-
-                index++;
-            }).on("end", function () {
-                batch.commit().then(function () {
-                    return res.ok('csv file imported.');
-                });
-
-            });
-        });
-    },
+    //         });
+    //     });
+    // },
     //////////////////////////////////////////////////////////////////////////////
     upload2: async function (req, res) {
 
 
         if (req.method == 'GET')
-            return res.view('main/upload');
+            return res.view('main/upload2');
 
-        req.file('optionmapping').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
-            if (err) { return res.serverError(err); }
-            if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
+        const csv = require("fast-csv");
+        var db = sails.firebaseAdmin.firestore();
 
-            var db = sails.firebaseAdmin.firestore();
-            var optionmapping = require("fast-csv");
+        var surgeryNoBuffer = new Buffer(req.body.sugeryNo[1].split(",")[1], 'base64'.toString('utf8'));
+        var calibrationBuffer = new Buffer(req.body.calibration[1].split(",")[1], 'base64'.toString('utf8'));
+        var optionmappingBuffer = new Buffer(req.body.optionmapping[1].split(",")[1], 'base64'.toString('utf8'));
+        var hospitalcodeBuffer = new Buffer(req.body.hospitalcode[1].split(",")[1], 'base64'.toString('utf8'));
 
+        await new Promise((resolve, reject) => {
             var index = 0;
-
             var batch = db.batch();
-
-            optionmapping.fromPath(uploadedFiles[0].fd, { headers: false }).on("data", function (data) {
-                if (index == 0 || index == 1) {
+            csv.fromString(surgeryNoBuffer, { headers: false }).on("data", function (data) {
+                if (index == 0) {
                     index++;
                     return;
                 }
 
-                // console.log()
-                // console.log(data);
-                if (data[1].includes('General') && data[2]) {
+                if (data[0]) {
 
-
-                    var optionNum = 1;
-                    var inputCount = 5;
-                    while (data[inputCount] != "") {
-                        batch.set(db.collection('general').doc('option').collection(data[2]).doc(optionNum), {
-                            "content": data[inputCount],
-                            //             // "percentage": data[],
-                            //             // "price": data[],
-                            //             // "title" : data[],
-                            "內容": data[inputCount],
-                        });
-                    }
-                    inputCount++;
-                    optionNum++;
+                    batch.set(db.collection('surgery').doc(data[0]), {
+                        "content": data[1],
+                        "內容": data[2] ? data[2] : '',
+                    });
                 }
+
                 index++;
             }).on("end", function () {
                 batch.commit().then(function () {
-                    return res.ok('csv file imported.');
+                    console.log('surgeryNo end');
+                    resolve();
                 });
-
             });
         });
+
+
+
+        console.log(req.body);
+        return res.ok("uploaded");
     },
+
 };
 
-//};
-//...
 
 
 

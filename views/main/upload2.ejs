@@ -1,0 +1,47 @@
+<form action="/main/upload2" method="post">
+    <label>Please upload files in all fields</label>
+    <div>
+        <label>Surgery No</label>
+        <input type="file" accept="text/csv" onchange="handleFile(this)" name="surgeryNo" required />
+        <div> </div>
+    </div>
+    <!-- <div>
+        <label>Calibration</label>
+        <input type="file" accept="text/csv" onchange="handleFile(this)" name="calibration" required />
+        <div> </div>
+    </div>
+    <div>
+        <label>Option Mapping</label>
+        <input type="file" accept="text/csv" onchange="handleFile(this)" name="optionmapping" required />
+        <div> </div>
+    </div>
+    <div>
+        <label>Hospital Code</label>
+        <input type="file" accept="text/csv" onchange="handleFile(this)" name="hospitalcode" required />
+        <div> </div>
+    </div> -->
+    <input type="submit" />
+    </div>
+    <script>
+        function handleFile(element) {
+
+            const file = element.files[0];
+            //   if (!file.type.startsWith('csv/')) return;
+
+            var preview = element.nextElementSibling;
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = element.name;
+                input.value = e.target.result;
+                preview.appendChild(input);
+            }
+            reader.readAsDataURL(file);
+
+        }
+    </script>
