@@ -73,51 +73,66 @@ module.exports = {
     //////////////////////////////////////////////////////////////////////////////
     upload2: async function (req, res) {
 
-
         if (req.method == 'GET')
             return res.view('main/upload2');
 
         const csv = require("fast-csv");
         var db = sails.firebaseAdmin.firestore();
 
-        var surgeryNoBuffer = new Buffer(req.body.sugeryNo[1].split(",")[1], 'base64'.toString('utf8'));
-        var calibrationBuffer = new Buffer(req.body.calibration[1].split(",")[1], 'base64'.toString('utf8'));
-        var optionmappingBuffer = new Buffer(req.body.optionmapping[1].split(",")[1], 'base64'.toString('utf8'));
-        var hospitalcodeBuffer = new Buffer(req.body.hospitalcode[1].split(",")[1], 'base64'.toString('utf8'));
+        var surgerynoBuffer = new Buffer(req.body.surgeryno[1].split(",")[1], 'base64').toString('utf8');
+        var optionmapBuffer = new Buffer(req.body.optionmap[1].split(",")[1], 'base64').toString('utf8');
+        var calibrationBuffer = new Buffer(req.body.calibration[1].split(",")[1], 'base64').toString('utf8');
+        var hospitalBuffer = new Buffer(req.body.hospital[1].split(",")[1], 'base64').toString('utf8');
 
+        //////////////////////CALIBRATION//////////////////////////////////////
+
+        ///////////////////////HOSIPITAL CODE////////////////////////////
         await new Promise((resolve, reject) => {
             var index = 0;
             var batch = db.batch();
-            csv.fromString(surgeryNoBuffer, { headers: false }).on("data", function (data) {
+       
+            csv.fromString(hospitalBuffer, { headers: false }).on("data", function (data) {
                 if (index == 0) {
                     index++;
                     return;
                 }
+                if (index == 1) {
+                    index++;
+                    return;
+                }
 
-                if (data[0]) {
+                // console.log()
+                console.log(data);
+                if (data[0]&& data[1]) {
 
-                    batch.set(db.collection('surgery').doc(data[0]), {
+                    batch.set(db.collection('hospital').doc(data[0]), {
+                        "id": data[0],
                         "content": data[1],
-                        "內容": data[2] ? data[2] : '',
+                        "內容": data[1],
+        
                     });
                 }
 
                 index++;
             }).on("end", function () {
                 batch.commit().then(function () {
-                    console.log('surgeryNo end');
+                    console.log('hospital end');
                     resolve();
                 });
+
             });
         });
 
-
-
+       
         console.log(req.body);
-        return res.ok("uploaded");
+
+        return res.ok("Files uploaded successfully");
+
     },
 
 };
+
+
 
 
 
