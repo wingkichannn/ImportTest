@@ -84,12 +84,100 @@ module.exports = {
         var calibrationBuffer = new Buffer(req.body.calibration[1].split(",")[1], 'base64').toString('utf8');
         // var hospitalBuffer = new Buffer(req.body.hospital[1].split(",")[1], 'base64').toString('utf8');
 
-        //////////////////////CALIBRATION//////////////////////////////////////
+        //////////////////////Surgery Number//////////////////////////////////////
 
-        await new Promise((resolve, reject) => {
-            var index = 0;
-            var batch = db.batch();
+            // await new Promise((resolve, reject) => {
+            //     var index = 0;
+            //     var batch = db.batch();
+            //     csv.fromString(surgerynoBuffer, { headers: false }).on("data", function (data) {
+            //         if (index == 0) {
+            //             index++;
+            //             return;
+            //         }
 
+            //         console.log(data);
+            //         if (data[0]) {
+            //             batch.set(db.collection('surgery').doc(data[0]), {
+            //                 "id": data[0],
+            //                 "content": data[1],
+            //                 "內容": data[2] ? data[2] : '',
+            //                 "specialist": data[3],
+            //             });
+            //         }
+            //         index++;
+            //     }).on("end", function () {
+            //         batch.commit().then(function () {
+            //             console.log('surgeryno end');
+            //             resolve();
+            //         });
+            //     });
+            // });
+
+            /////////////////////////////option mapping////////////////////////////////////// 
+            // await new Promise((resolve, reject) => {
+            //     var index = 0;
+            //     var batch = db.batch();
+
+            //     csv.fromString(optionmapBuffer, { headers: false }).on("data", function (data) {
+            //         if (index == 0 || index == 1 || !(data[3] && data[4])) {
+            //             index++;
+            //             return;
+            //         }
+
+            //         if (data[1]) {
+            //             //general option
+            //             if (data[1].toString().startsWith("General")) {
+            //                 if (data[2]) {
+            //                     var conA = {};
+            //                     conA[data[2]] = data[3] || '';
+            //                     batch.set(db.collection('general').doc('option'), conA, { merge: true });
+            //                 }
+
+            //                 if (data[3] && data[2]) {
+            //                     for (var gencount = 4, genno = 1; data[gencount]; gencount++ , genno++) {
+            //                         console.log('path = ' + db.collection('general').doc('option').collection(data[2]).doc(genno.toString()).path);
+            //                         batch.set(db.collection('general').doc('option').collection(data[2]).doc('' + genno), {
+            //                             "content": data[gencount],
+            //                             "內容": data[gencount],
+            //                         });
+            //                     }
+            //                 }
+            //                 console.log('general');
+            //                 index++;
+            //                 return;
+            //             }
+
+            //             console.log(data);
+            //             var surCode = data[1].replace(data[2], '');
+            //             var opCode = data[1].replace(surCode, '');
+
+            //             if (data[2] && data[3] && (opCode == data[2])) {
+            //                 console.log('data 2');
+            //                 var con = {};
+            //                 con[data[2]] = data[3] || '';
+            //                 batch.set(db.collection('surgery').doc(surCode).collection('option').doc('specific'), con, { merge: true });
+            //                 for (var surcount = 4, surno = 1; data[surcount]; surcount++ , surno++) {
+            //                     batch.set(db.collection('surgery').doc(surCode).collection('option').doc('specific').collection(data[2]).doc('' + surno), {
+            //                         "content": data[surcount],
+            //                         "內容": data[surcount],
+            //                     });
+            //                 }
+            //             }
+            //             index++;
+            //             return;
+            //         }
+            //     }).on("end", function () {
+            //         batch.commit().then(function () {
+            //             console.log('optionmap end');
+            //             resolve();
+            //         });
+            //     });
+
+            // });
+        //     ////////////////////////CALIBRATION///////////////////////////////////////
+            await new Promise((resolve, reject) => {
+                var index = 0;
+                var batch = db.batch();
             csv.fromString(calibrationBuffer, { headers: false }).on("data", function (data) {
                 if (index == 0) {
                     index++;
@@ -106,9 +194,10 @@ module.exports = {
                     /////////////extract surgery number & surgery option//////////
                     //data[4] = name 
 
-                    var cSurgeryNo = data[6].toLowerCase().match(/^([\d]+)/g)[0];//take out surgery number e.g. 121
-                    var cSurgeryOptionNum = data[6].toLowerCase().match(/([\d]+)$/g)[0];//take out surgery option number e.g. 1 from A1
-                    var cSurgeryOption = data[6].toLowerCase().replace(cSurgeryNo, '').replace(cSurgeryOptionNum, '');//take out the option GeneralA/A(specific)
+                    var cSurgeryNo = (data[6].toLowerCase().match(/^([\d]+)/g) || [])[0];//take out surgery number e.g. 121
+                    var cSurgeryOptionNum = (data[6].toLowerCase().match(/([\d]+)$/g) || [])[0];//take out surgery option number e.g. 1 from A1
+                    if (cSurgeryNo && cSurgeryOptionNum)
+                        var cSurgeryOption = data[6].toLowerCase().replace(cSurgeryNo, '').replace(cSurgeryOptionNum, '');//take out the option GeneralA/A(specific)
 
 
                     var amount = data[7];//price
@@ -171,7 +260,7 @@ module.exports = {
 
             });
         });
-        ///////////////////////HOSIPITAL CODE////////////////////////////
+        // ///////////////////////HOSIPITAL CODE////////////////////////////
         // await new Promise((resolve, reject) => {
         //     var index = 0;
         //     var batch = db.batch();
