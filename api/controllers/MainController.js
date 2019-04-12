@@ -215,20 +215,20 @@ module.exports = {
                         if (data[4].toLowerCase().includes("base")) {
                             // d['cSurgeryNo'] = data[7];
                             batch.set(db.collection('surgery').doc(cSurgeryNo), {
-                                "baseline_price": data[7],
+                                "baseline_price": amount,
                             }, { merge: true });//overwrite the field
                         } else if (data[4].toLowerCase().includes("lower")) {
                             // d['cSurgeryNo'] = data[7];
                             batch.set(db.collection('surgery').doc(cSurgeryNo), {
-                                "lowerBaselinePrice": data[7],
+                                "lowerBaselinePrice": amount,
                             }, { merge: true });
                         } else if (data[4].toLowerCase().includes("upper")) {
                             batch.set(db.collection('surgery').doc(cSurgeryNo), {
-                                "upperBaselinePrice": data[7],
+                                "upperBaselinePrice": amount,
                             }, { merge: true });
                         } else if (data[4].toLowerCase().includes("docfeehkrange")) {
                             batch.set(db.collection('surgery').doc(cSurgeryNo), {
-                                "range": data[7],
+                                "range": amount,
                             }, { merge: true });
                         }
                         else if (cSurgeryOptionNum) {
@@ -239,12 +239,16 @@ module.exports = {
                                     // "baseline_price": data[7],
                                     "percentage": agePercentage,
                                     "price": amount,
+                                    "content": data[5],
+                                    "內容": data[5],
                                 });
                             } else {
                                 batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('specific').collection(cSurgeryOption).doc(cSurgeryOptionNum), {
                                     // "baseline_price": data[7],
                                     "percentage": agePercentage,
                                     "price": amount,
+                                    "content": data[5],
+                                    "內容": data[5],
                                 });
                             }
                         }
