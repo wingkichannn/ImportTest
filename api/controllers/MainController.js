@@ -194,15 +194,15 @@ module.exports = {
                     /////////////extract surgery number & surgery option//////////
                     //data[4] = name 
 
-                    var cSurgeryNo = (data[6].toLowerCase().match(/^([\d]+)/g) || [])[0];//take out surgery number e.g. 121
-                    var cSurgeryOptionNum = (data[6].toLowerCase().match(/([\d]+)$/g) || [])[0];//take out surgery option number e.g. 1 from A1
+                    var cSurgeryNo = (data[4].toLowerCase().match(/^([\d]+)/g) || [])[0];//take out surgery number e.g. 121
+                    var cSurgeryOptionNum = (data[4].toLowerCase().match(/([\d]+)$/g) || [])[0];//take out surgery option number e.g. 1 from A1
                     if (cSurgeryNo && cSurgeryOptionNum)
-                        var cSurgeryOption = data[6].toLowerCase().replace(cSurgeryNo, '').replace(cSurgeryOptionNum, '');//take out the option GeneralA/A(specific)
+                        var cSurgeryOption = data[4].toUpperCase().replace(cSurgeryNo, '').replace(cSurgeryOptionNum, '');//take out the option GeneralA/A(specific)
 
 
                     var amount = data[7];//price
                     var agePercentage = data[6].match(/^[\d]+/g);//extract digits but no %
-                    var useAmount = data[44].match(/\d/g);//extract digits but no %
+                    var useAmount = data[50].match(/^[\d]+/g);//extract digits but no %
 
                     // var d = {};//no need this as read line by line
 
@@ -230,7 +230,8 @@ module.exports = {
                         }
                         else if (cSurgeryOptionNum) {
                             if (data[6].toLowerCase().includes('general')) {
-                                var generalOption = data[6].toLowerCase().replace('general', '');
+                                // var generalOption = data[4].toLowerCase().replace('general', '');
+                                var generalOption = cSurgeryOption.toLowerCase().replace('general', '');
                                 batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('general').collection(generalOption).doc(cSurgeryOptionNum), {
                                     // "baseline_price": data[7],
                                     "percentage": agePercentage,
@@ -305,9 +306,6 @@ module.exports = {
     },
 
 };
-
-
-
 
 
 
