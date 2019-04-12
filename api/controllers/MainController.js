@@ -122,24 +122,36 @@ module.exports = {
                         ////////////Base Case/////////////
                         if (data[4].toLowerCase().includes("base")) {
                             // d['cSurgeryNo'] = data[7];
-                            batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option'), {
+                            batch.set(db.collection('surgery').doc(cSurgeryNo), {
                                 "baseline_price": data[7],
-                            }, {merge:true});//overwrite the field
+                            }, { merge: true });//overwrite the field
                         } else if (data[4].toLowerCase().includes("lower")) {
                             // d['cSurgeryNo'] = data[7];
-                            batch.set(db.collection('surgery').doc('option'), {
+                            batch.set(db.collection('surgery').doc(cSurgeryNo), {
                                 "lowerBaselinePrice": data[7],
-                            }, {merge:true});
+                            }, { merge: true });
                         } else if (data[4].toLowerCase().includes("upper")) {
-                            batch.set(db.collection('surgery').doc('option'), {
+                            batch.set(db.collection('surgery').doc(cSurgeryNo), {
                                 "upperBaselinePrice": data[7],
-                            }, {merge:true});
-                        } else if(cSurgeryOptionNum) {
+                            }, { merge: true });
+                        } else if (data[4].toLowerCase().includes("docfeehkrange")) {
+                            batch.set(db.collection('surgery').doc(cSurgeryNo), {
+                                "range": data[7],
+                            }, { merge: true });
+                        }
+                        else if (cSurgeryOptionNum) {
                             if (data[6].toLowerCase().includes('general')) {
-
+                                var generalOption = data[6].toLowerCase().replace('general', '');
+                                batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('general').collection(generalOption).doc(cSurgeryOptionNum), {
+                                    // "baseline_price": data[7],
+                                    "percentage": agePercentage,
+                                    "price": amount,
+                                });
                             } else {
                                 batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('specific').collection(cSurgeryOption).doc(cSurgeryOptionNum), {
                                     // "baseline_price": data[7],
+                                    "percentage": agePercentage,
+                                    "price": amount,
                                 });
                             }
                         }
