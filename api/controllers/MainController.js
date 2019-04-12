@@ -232,9 +232,9 @@ module.exports = {
                             }, { merge: true });
                         }
                         else if (cSurgeryOptionNum) {
-                            if (data[6].toLowerCase().includes('general')) {
+                            if (data[4].toLowerCase().includes('general')) {
                                 // var generalOption = data[4].toLowerCase().replace('general', '');
-                                var generalOption = cSurgeryOption.toLowerCase().replace('general', '');
+                                var generalOption = cSurgeryOption.toUpperCase().replace('GENERAL', '');
                                 batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('general').collection(generalOption).doc(cSurgeryOptionNum), {
                                     // "baseline_price": data[7],
                                     "percentage": agePercentage,
