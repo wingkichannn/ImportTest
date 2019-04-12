@@ -82,7 +82,7 @@ module.exports = {
         var surgerynoBuffer = new Buffer(req.body.surgeryno[1].split(",")[1], 'base64').toString('utf8');
         var optionmapBuffer = new Buffer(req.body.optionmap[1].split(",")[1], 'base64').toString('utf8');
         var calibrationBuffer = new Buffer(req.body.calibration[1].split(",")[1], 'base64').toString('utf8');
-        // var hospitalBuffer = new Buffer(req.body.hospital[1].split(",")[1], 'base64').toString('utf8');
+        var hospitalBuffer = new Buffer(req.body.hospital[1].split(",")[1], 'base64').toString('utf8');
 
         ////////////////////Surgery Number//////////////////////////////////////
 
@@ -285,41 +285,41 @@ module.exports = {
             });
         });
         // ///////////////////////HOSIPITAL CODE////////////////////////////
-        // await new Promise((resolve, reject) => {
-        //     var index = 0;
-        //     var batch = db.batch();
+        await new Promise((resolve, reject) => {
+            var index = 0;
+            var batch = db.batch();
 
-        //     csv.fromString(hospitalBuffer, { headers: false }).on("data", function (data) {
-        //         if (index == 0) {
-        //             index++;
-        //             return;
-        //         }
-        //         if (index == 1) {
-        //             index++;
-        //             return;
-        //         }
+            csv.fromString(hospitalBuffer, { headers: false }).on("data", function (data) {
+                if (index == 0) {
+                    index++;
+                    return;
+                }
+                if (index == 1) {
+                    index++;
+                    return;
+                }
 
-        //         // console.log()
-        //         console.log(data);
-        //         if (data[0] && data[1]) {
+                // console.log()
+                console.log(data);
+                if (data[0] && data[1]) {
 
-        //             batch.set(db.collection('hospital').doc(data[0]), {
-        //                 "id": data[0],
-        //                 "content": data[1],
-        //                 "內容": data[1],
+                    batch.set(db.collection('hospital').doc(data[0]), {
+                        "id": data[0],
+                        "content": data[1],
+                        "內容": data[1],
 
-        //             });
-        //         }
+                    });
+                }
 
-        //         index++;
-        //     }).on("end", function () {
-        //         batch.commit().then(function () {
-        //             console.log('hospital end');
-        //             resolve();
-        //         });
+                index++;
+            }).on("end", function () {
+                batch.commit().then(function () {
+                    console.log('hospital end');
+                    resolve();
+                });
 
-        //     });
-        // });
+            });
+        });
 
 
         console.log(req.body);
