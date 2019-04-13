@@ -258,7 +258,11 @@ module.exports = {
                                     "price": sourceAmount,
                                     "use": sourceUse,
                                 }, { merge: true });
-                            } else {
+                                 sourceNo++;
+
+                            }
+                            ////////////////////////////////////////////////////
+                            else {
                                 batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('specific').collection(cSurgeryOption).doc(cSurgeryOptionNum), {
                                     // "baseline_price": data[7],
                                     "percentage": agePercentage,
@@ -266,8 +270,55 @@ module.exports = {
                                     "content": data[5],
                                     "內容": data[5],
                                 }, { merge: true });
+                               
+                                //////////////////////////////////////////
+                                var sourceNo = 1;
+                                var sourceNoString = sourceNo.toString();
+                                var name = 'source_';
+                                var sourceName = name.concat(sourceNoString);
+                                var sourceAmount = parseInt("");
+                                var sourceUse = "";
+
+                                batch.set(db.collection('surgery').doc(cSurgeryNo).collection('option').doc('specific').collection(cSurgeryOption).doc(cSurgeryOptionNum).collection('price_history').doc(sourceName), {
+                                    // "baseline_price": data[7],
+                                    "percentage": usePercentage,
+                                    "price": sourceAmount,
+                                    "use": sourceUse,
+                                }, { merge: true });
+                                sourceNo++;
                             }
                         }
+
+                    }
+                    else if (data[4].toLowerCase.startsWith('general')){
+
+                        var cSurgeryOptionNum = (data[4].toLowerCase().match(/([\d]+)$/g) || [])[0];
+
+                        var cSurgeryOption = data[4].toUpperCase().replace(GENERAL, '').replace(cSurgeryOptionNum, '');
+
+                        batch.set(db.collection('general').doc('option').collection(cSurgeryOption).doc(cSurgeryOptionNum).collection(cSurgeryOption).doc(cSurgeryOptionNum), {
+                            // "baseline_price": data[7],
+                            "percentage": agePercentage,
+                            "price": amount,
+                            "content": data[5],
+                            "內容": data[5],
+                        }, { merge: true });
+                       
+                        //////////////////////////////////////////
+                        var sourceNo = 1;
+                        var sourceNoString = sourceNo.toString();
+                        var name = 'source_';
+                        var sourceName = name.concat(sourceNoString);
+                        var sourceAmount = parseInt("");
+                        var sourceUse = "";
+
+                        batch.set(db.collection('general').doc('option').collection(cSurgeryOption).doc(cSurgeryOptionNum).collection('price_history').doc(sourceName), {
+                            // "baseline_price": data[7],
+                            "percentage": usePercentage,
+                            "price": sourceAmount,
+                            "use": sourceUse,
+                        }, { merge: true });
+                        sourceNo++;
 
                     }
 
