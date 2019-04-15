@@ -365,7 +365,7 @@ module.exports = {
                 index++;
             }).on("end", function () {
                 batch.commit().then(function () {
-                    console.log('test')
+                   // console.log('test')
                     console.log('hospital end');
                     resolve();
                 });
