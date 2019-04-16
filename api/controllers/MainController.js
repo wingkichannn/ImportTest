@@ -95,7 +95,7 @@ module.exports = {
                     return;
                 }
 
-                console.log(data);
+                //console.log(data);
                 if (data[0]) {
                     batch.set(db.collection('surgery').doc(data[0]), {
                         "id": data[0],
@@ -147,12 +147,12 @@ module.exports = {
                         return;
                     }
 
-                    console.log(data);
+                   // console.log(data);
                     var surCode = data[1].replace(data[2], '');
                     var opCode = data[1].replace(surCode, '');
 
                     if (data[2] && data[3] && (opCode == data[2])) {
-                        console.log('data 2');
+                        //console.log('data 2');
                         var con = {};
                         con[data[2]] = data[3] || '';
                         batch.set(db.collection('surgery').doc(surCode).collection('option').doc('specific'), con, { merge: true });
@@ -189,7 +189,7 @@ module.exports = {
                 }
 
                 // console.log()
-                console.log(data);
+                //console.log(data);
                 if (data[4]) {
                     /////////////extract surgery number & surgery option//////////
                     //data[4] = name 
@@ -351,7 +351,7 @@ module.exports = {
                 }
 
                 // console.log()
-                console.log(data);
+                //console.log(data);
                 if (data[0] && data[1]) {
 
                     batch.set(db.collection('hospital').doc(data[0]), {
@@ -374,7 +374,7 @@ module.exports = {
         });
 
 
-        console.log(req.body);
+        //console.log(req.body);
 
         return res.ok("Files uploaded successfully");
 
